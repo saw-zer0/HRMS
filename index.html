@@ -1,34 +1,81 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HRMS</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>Logo</h2>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Attendence</a></li>
+            <li><a href="#">Leave</a></li>
+            <li><a href="#">Payroll</a></li>
+        </ul> 
+        <div class="social_media">
+          <button>Logout</button>
+      </div>
+    </div>
+    <div class="main_content">
+        <div class="header">Welcome back!! Pikachu.</div> 
+          
+      </div>
+    </div>
+</div>
+
+</body>
+</html> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HRMS - Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Business Card</title>
+    <style>
+        .business-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 250px;
+            height: 150px;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .business-card-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .business-card-title {
+            font-size: 16px;
+            font-style: italic;
+        }
+        .business-card-contact {
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-
-    <header>
-        <img src="image/bell-icon.png" alt="Bell Icon" class="bell-icon">
-    </header>
-    <div class = "sidebar">
-        <header>
-            <h3><img src = "image/logo.jpg" class = "logo-icon"></h3>
-            <!-- <img src="bell-icon.png" alt="Bell Icon" class="bell-icon"> -->
-        </header>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Attendance</a></li>
-            <li><a href="#">Leave</a></li>
-            <li><a href="#">Payroll</a></li>
-        </ul>        
+    <div class="business-card">
+        <div class="business-card-info">
+            <h1 class="business-card-name">Anup Thapa</h1>
+            <p class="business-card-title">Sales Manager</p>
+            <p class="business-card-contact">Naxal, Kathmandu</p>
+        </div>
+        <div class="business-card-contact">
+            <p>+977 9835662551</p>
+            <p>hrmsanupthapa@gmail.com</p>
+        </div>
     </div>
-    <main>
-        <h2>Welcome, Pikachu</h2>
-    </main>
-    <footer>
-        <p>&copy; 2024 pikachu. All rights reserved.</p>
-    </footer>
 </body>
 </html>
+

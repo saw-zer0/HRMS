@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -11,13 +11,9 @@
 
 body{
    background-color: #f3f5f9;
-   margin: 0;
-   padding: 0;
 }
 
 .wrapper{
-  margin: 0;
-  padding: 0;
   display: flex;
   position: relative;
 }
@@ -25,7 +21,7 @@ body{
 .wrapper .sidebar{
   width: 200px;
   height: 100%;
-  background: #4b4276;
+  background: #7F9DAB;
   padding: 30px 0px;
   position: fixed;
 }
@@ -38,14 +34,15 @@ body{
 }
 
 .wrapper .sidebar ul li{
-  padding: 15px;
-  border-bottom: 1px solid #bdb8d7;
+  padding: 30px;
+  font-weight: bold;
+  border-bottom: 1px solid #252525;
   border-bottom: 1px solid rgba(0,0,0,0.05);
   border-top: 1px solid rgba(255,255,255,0.05);
 }    
 
 .wrapper .sidebar ul li a{
-  color: #bdb8d7;
+  color: #ffffff;
   display: block;
 }
 
@@ -54,7 +51,7 @@ body{
 }
 
 .wrapper .sidebar ul li:hover{
-  background-color: #594f8d;
+  background-color: #586C75;
 }
     
 .wrapper .sidebar ul li:hover a{
@@ -88,24 +85,43 @@ body{
 }
 
 .wrapper .main_content .header{
-  padding: 20px;
-  background: #fff;
+  padding: 10px ;
+  background: #1E4F66;
   color: #717171;
   border-bottom: 1px solid #e0e4e8;
 }
 
-.wrapper .main_content .info{
-  margin: 20px;
-  color: #717171;
-  line-height: 25px;
-}
-
-.wrapper .main_content .info div{
-  margin-bottom: 20px;
-}
-
-@media (max-height: 500px){
-  .social_media{
-    display: none !important;
+.header {
+    background-color: #ffffff; 
+    padding: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    justify-content: space-between;
   }
+  
+  .log-out {
+    background-color: #cc2626; 
+    color: #ffffff; 
+    border: none; 
+    padding: 10px 20px;
+    font-size: 16px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+    transition: background-color 0.3s, transform 0.3s;     
+    margin-left: auto;
+  }
+  
+  .log-out:hover {
+    background-color: #e74c3c; 
+    transform: translateY(-2px); 
+  }
+  
+
+.notification {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    padding-left: 1140px;
+    color: #ffffff;
 }
+
