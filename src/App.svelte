@@ -10,42 +10,37 @@
 </script>
 
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #f0f0f0;
-    }
+    
 
     .container {
         display: flex;
         flex-direction: row;
         width: 100%; 
         border-radius: 10px;
-        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-        padding-top: 100px;
-        
+        justify-content: center;
+        height:100%;
+
+    }
+    .logo-container img {
+        width:120px;
+        height: 120px;
+
     }
 
+
     .image-container {
-        flex: 2;
-        background-color:  #1E4F66;
-        background-size: cover; 
-        
-       
+    flex: 2;
+    background-image: url('/img.png');
+    background-size: cover; 
+    background-position: center center;
+    width: 750px;
+    height: 500px;
     
-       
-    
-        
-    }
+}
 
     .login-container {
         flex: 1;
         padding: 100px;
-       
         
     }
 
@@ -86,7 +81,8 @@
         text-align: right;
         margin-top: 10px;
         margin-right: 10px;
-        font-size: 14px;
+        font-size: 14px; 
+        
     }
 
     .forgot-password a {
@@ -114,8 +110,11 @@
     }
 
 </style>
-
+<div class="logo-container">
+    <img src='/logo.png' alt="logo">
+</div>
 <div class="container">
+    
     <div class="image-container"></div>
     <div class="login-container">
         <h2>Login</h2>
