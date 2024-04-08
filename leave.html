@@ -6,17 +6,20 @@
     <title>Leave</title>
     <link rel="stylesheet" href="leave.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="wrapper">
         <div class="sidebar">
           <h2><img src="image/LOGO.png" class="logo"></h2>
           <ul>
-              <li class="home"><a href="#" class="nav-item">Home</a></li>
-              <li class="profile"><a href="#" class="nav-item active">Profile</a></li>
-              <li class="attendence"><a href="#" class="nav-item">Attendence</a></li>
-              <li class="leave"><a href="#" class="nav-item">Leave</a></li>
-              <li class="payroll"><a href="#" class="nav-item">Payroll</a></li>
+            <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('home.html')">Home</a></li>
+            <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('profile.html')">Profile</a></li>
+            <li class="attendence"><a href="#" class="nav-item" onclick="navigateToPage('attendence.html')">Attendance</a></li>
+            <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('leave.html')">Leave</a></li>
+            <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('payroll.html')">Payroll</a></li>
           </ul>
           <div class="social_media">
           </div>
@@ -33,7 +36,42 @@
               
           </div>
           <div class="leave-info">
-            <button class="leave-button">Apply for leave</button>
+            <button class="leave-button" onclick="openModal()">Apply for leave</button>
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close" onclick="closeModal()">&times;</span>
+                  <h2>Request for Leave</h2>
+                  <form id="leaveForm">
+                    <label for="employeeName">Employee Name:</label>
+                    <input type="text" id="employeeName" name="employeeName" required><br><br>
+            
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown button
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Vacation</a></li>
+                          <li><a class="dropdown-item" href="#">Sick</a></li>
+                          <li><a class="dropdown-item" href="#">Personal</a></li>
+                        </ul>
+                      </div>
+                    
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" name="startDate" required><br><br>
+                    
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" name="endDate" required><br><br>
+                    
+                    <label for="leaveReason">Leave Reason:</label><br>
+                    <textarea id="leaveReason" name="leaveReason" rows="4" cols="50" required></textarea><br><br>
+                    
+                    <button type="button" onclick="closeModal()">Cancel</button>
+                    <button type="submit">Submit</button>
+                  </form>
+                </div>
+              </div>
           </div>
           <div class="leave-req">
             <h3>Leave Requests</h3>
@@ -45,7 +83,7 @@
                 
             </div>
           </div>
-
+          
           <div class="table-container">
             <table>
                 <thead>
@@ -123,5 +161,40 @@
         </div>
         </div>
       </div>
+
+      <script>
+        function navigateToPage(page) {
+          window.location.href = page;
+        }
+
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+      
+        function openModal() {
+          modal.style.display = "block";
+        }
+      
+        // When the user clicks on <span> (x), close the modal
+        function closeModal() {
+          modal.style.display = "none";
+        }
+      
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+        
+        // Form submission
+        document.getElementById("leaveForm").addEventListener("submit", function(event) {
+          event.preventDefault(); // Prevent form submission
+          // Here you can handle form submission, e.g., send data to server
+          alert("Leave request submitted successfully!");
+          closeModal(); // Close the modal after submission
+        });
+      </script>
+
 </body>
 </html>

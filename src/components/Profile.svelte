@@ -1,14 +1,86 @@
-/* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600&display=swap');
+<script>
+        // import { App.svelte } from 'svelte-routing';
+        import App from './App.svelte';
 
+
+      const name = "Batman";
+      const post = "Sales Manager";
+      const address = "Naxal, Kathmandu";
+      const joined = "Employee Since September, 2020";
+</script>
+
+
+<main>
+  <div class="wrapper">
+    <div class="sidebar">
+        <h2><img src="image/LOGO.png">Logo</h2>
+        <ul>
+          <li class="home"><Link to="/home">Home</Link></li>
+        <li class="profile"><Link to="/">Profile</Link></li>
+        <li class="attendance"><Link to="/attendance">Attendance</Link></li>
+        <li class="leave"><Link to="/leave">Leave</Link></li>
+        <li class="payroll"><Link to="/payroll">Payroll</Link></li>
+          </ul>
+        <div class="social_media">
+        </div>
+    </div>
+    <div class="main_content">
+        <div class="header">
+            <div class="notification">
+                <i class="fas fa-bell"></i>
+            </div>
+            <button class="log-out">Logout</button>
+        </div>
+        <div class="info">
+            <div class="profile-heading"><h2>My Profile</h2></div>
+            <div class="profile-info"> 
+                <div class="profile-img"><h3><img src="image/profile.png" alt="Profile Picture"></h3></div>
+                <div class="name-add-emp" style="margin: 10px;">
+                    <h3>{name}</h3>
+                    <p class="employee-post">{post}</p>
+                    <p class="employee-address">{address}</p>
+                    <p class="employee-joined">{joined}</p>
+                </div>   
+            </div>
+            <div class="gap"></div>
+            <div class="personal-details">
+                <div class="left-details">
+                    <div class="highlight-personal-details">
+                        <span class="span-highlight">Personal Details</span>
+                        <i class="fas fa-edit edit-icon"></i>
+                    </div>
+                    <p><strong>Nationality :</strong> Nepali</p>
+                    <p><strong>Gender :</strong> Male</p>
+                    <p><strong>Marital Status :</strong> Single</p>
+                    <p><strong>DOB :</strong> January 1, 1990</p>
+                    <p><strong>Contact :</strong> 123-456-7890</p>
+                </div>
+                <div class="line"></div> 
+                <div class="right-details">
+                    <div class="highlight-employee-details">
+                        <span class="span-highlight">Employee Details</span>
+                    </div>
+                    <p><strong>Employee ID :</strong> 123456</p>
+                    <p><strong>Joined Date :</strong> September 1, 2020</p>
+                    <p><strong>Company Email :</strong> employee@example.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</main>
+
+<style>
+    /* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 body{
@@ -91,20 +163,18 @@ body{
   background: #1E4F66;
   color: #717171;
   border-bottom: 1px solid #e0e4e8;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logo{
-  height: 120px;
-  width: 120px;
-  
-}
+.header {
+    background-color: #ffffff; 
+    padding: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    justify-content: space-between;
+  }
   
   .log-out {
-    background-color: #E25355; 
+    background-color: #cc2626; 
     color: #ffffff; 
     border: none; 
     padding: 10px 20px;
@@ -112,7 +182,7 @@ body{
     cursor: pointer; 
     border-radius: 5px; 
     transition: background-color 0.3s, transform 0.3s;     
-    align-self: flex-end;
+    margin-left: auto;
   }
   
   .log-out:hover {
@@ -141,10 +211,9 @@ body{
 }
 
 .profile-img img {
-    width: 200px; /* Adjust width as needed */
+    width: 250px; /* Adjust width as needed */
     height: auto; /* Adjust height as needed */
-    margin-top: 20px;
-    margin-right: 25px; /* Add spacing between image and text */
+    margin-right: 10px; /* Add spacing between image and text */
 }
 
 .personal-details {
@@ -251,62 +320,10 @@ body{
     display: flex;
     align-items: center;
     margin-right: 10px;
-    align-self: flex-end;
+    padding-left: 1140px;
     color: #ffffff;
-    margin-right: 10px;
-    margin-bottom: 0px;
 }
 
-.profile {
-  padding-right: 20px;
-  padding-left: 20px;
-}
 
-.profile-button {
-  display: flex;
-  align-items: center;
-  background-color: #f0f0f0;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 10px 10px;
-  align-self: flex-end;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
+</style>
 
-.profile-button i {
-  margin-right: 10px;
-}
-
-.profile-button:hover {
-  background-color: #ccc;
-  color: #fff;
-  border-color: #999;
-}
-
-.wrapper .sidebar ul li.profile{
-  background-color: #586C75;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-.notify-btn {
-  background-color: #ffffff;
-  border: none;
-  border-radius: 100%; 
-  width: 40px; 
-  height: 40px; 
-  padding: 12px; 
-  cursor: pointer;
-  outline: none;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.notify-btn:hover {
-  background-color: #999; 
-}
-
-.notify-btn i {
-  color: #333; 
-}

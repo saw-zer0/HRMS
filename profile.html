@@ -13,11 +13,11 @@
   <div class="sidebar">
     <h2><img src="image/LOGO.png" class="logo"></h2>
     <ul>
-      <li class="home"><a href="#" class="nav-item">Home</a></li>
-      <li class="profile"><a href="#" class="nav-item">Profile</a></li>
-      <li class="attendence"><a href="#" class="nav-item">Attendence</a></li>
-      <li class="leave"><a href="#" class="nav-item">Leave</a></li>
-      <li class="payroll"><a href="#" class="nav-item">Payroll</a></li>
+      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('home.html')">Home</a></li>
+      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('profile.html')">Profile</a></li>
+      <li class="attendence"><a href="#" class="nav-item" onclick="navigateToPage('attendence.html')">Attendance</a></li>
+      <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('leave.html')">Leave</a></li>
+      <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('payroll.html')">Payroll</a></li>
     </ul>
     <div class="social_media">
     </div>
@@ -30,7 +30,7 @@
             <div class="profile">
               <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
             </div>
-        <button class="log-out">Logout</button>
+        <button class="log-out" onclick="">Logout</button>
         
     </div>
     <div class="info">
@@ -72,5 +72,12 @@
       </div>
   </div>
 </div>
+
+<script>
+  function navigateToPage(page) {
+    window.location.href = page;
+  }
+</script>
+
 </body>
 </html>
