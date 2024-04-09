@@ -29,6 +29,23 @@
                   <div class="profile">
                     <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
                   </div>
+                  <div class="popup" id="popup">
+                    <span class="popup-content">
+                      
+                      <span class="close" id="close">&times;</span>
+                       <div class="image-container">
+                        <img src="profile.png" alt="Image" class="popup-image">
+                       </div> 
+                       <span class="edit-profile">
+                        <a href="#" id="edit-profile-link">Edit Profile</a>
+                      </span>
+                      <p class="name">Anup Thapa</p>
+                      <p>Email: anup@example.com</p>
+                      <p>Address: kamalpokhari</p>
+                      <p>Phone number: 98000000</p>
+                    
+                    </span>
+                  </div>
               <button class="log-out">Logout</button>
               
           </div>
@@ -123,5 +140,21 @@
         </div>
         </div>
       </div>
+      <script>
+        // JavaScript code goes here
+        document.addEventListener("DOMContentLoaded", function() {
+          var profileButton = document.querySelector(".profile-button");
+          var popup = document.querySelector(".popup");
+          var closePopup = document.querySelector(".close");
+        
+          profileButton.addEventListener("click", function() {
+            popup.style.display = "block";
+          });
+        
+          closePopup.addEventListener("click", function() {
+            popup.style.display = "none";
+          });
+        });
+      </script>
 </body>
 </html>
