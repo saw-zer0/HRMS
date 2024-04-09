@@ -1,16 +1,31 @@
+
 <script>
-    import { Router, Route } from 'svelte-routing';
-    import Home from './components/Home.svelte';
-    import Profile from './components/Profile.svelte';
-    import Attendance from './components/Attendance.svelte';
-    import Leave from './components/Leave.svelte';
-    import Payroll from './components/Payroll.svelte';
+    import { Router, Link, Route } from "svelte-routing";
+    import Login from "./routes/login.svelte";
+    import Forgot from "./routes/forgot.svelte";
+
+    let forgotClicked = false;
+
+    function handleForgotClick() {
+        forgotClicked = true;
+    }
 </script>
 
+<!-- <Router>
+    <nav>
+        <Link to="/">Login</Link>
+        {#if !forgotClicked}
+            <Link to="/forgot" on:click={handleForgotClick}>Forgot</Link>
+        {/if}
+    </nav>
+    <div>
+        <Route path="/forgot" component={Forgot} />
+        <Route path="/" component={Login} />
+    </div>
+</Router> -->
 <Router>
-    <Route path="/" component={Home} />
-    <Route path="/profile" component={Profile} />
-    <Route path="/attendance" component={Attendance} />
-    <Route path="/leave" component={Leave} />
-    <Route path="/payroll" component={Payroll} />
+    <div>
+        <Route path="/forgot" component={Forgot} />
+        <Route path="/" component={Login} />
+    </div>
 </Router>

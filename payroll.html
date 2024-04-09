@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <link rel="stylesheet" href="profile.css">
+    <title>Payroll</title>
+    <link rel="stylesheet" href="payroll.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
 <body>
@@ -24,23 +24,109 @@
   </div>
   <div class="main_content">
     <div class="header">
-        <div class="notification">
-          <button class="notify-btn"><i class="fas fa-bell"></i></button>
-            </div>
-            <div class="profile">
-              <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
-            </div>
-        <button class="log-out" onclick="">Logout</button>
+      <div class="notification">
+        <button class="notify-btn"><i class="fas fa-bell"></i></button>
+      </div>
+      <div class="profile">
+        <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
+      </div>
+      <div class="popup" id="popup">
+        <span class="popup-content">
+          
+          <span class="close" id="close">&times;</span>
+           <div class="image-container">
+            <img src="profile.png" alt="Image" class="popup-image">
+           </div> 
+           <span class="edit-profile">
+            <a href="#" id="edit-profile-link">Edit Profile</a>
+          </span>
+          <p class="name">Anup Thapa</p>
+          <p>Email: anup@example.com</p>
+          <p>Address: kamalpokhari</p>
+          <p>Phone number: 98000000</p>
         
+        </span>
+      </div>
+      <button class="log-out">Logout</button>
+      
     </div>
-    
-</div>
-
-<script>
-  function navigateToPage(page) {
-    window.location.href = page;
-  }
-</script>
-
-</body>
-</html>
+    <div class="info">
+      <div class="box-container">
+      <div class="salary-details-box">
+        <h3>Salary Details</h3>
+        <div class="details">
+          <div class="detail-item">
+            <span>Basic Salary:</span>
+            <span>$XXXX</span>
+          </div>
+          <div class="detail-item">
+            <span>Overtime Paid:</span>
+            <span>$XXXX</span>
+          </div>
+          <div class="detail-item">
+            <span>Unpaid Leave:</span>
+            <span>X days</span>
+          </div>
+          <div class="detail-item">
+            <span>Late Arrival:</span>
+            <span>X minutes</span>
+          </div>
+        </div>
+      </div>
+      <div class="pay-period-box">
+        <h3>Pay Period</h3>
+        <div class="pay-period-details">
+          <div class="detail-item">
+            <span>Start:</span>
+            <span>MM/DD/YYYY</span>
+          </div>
+          <div class="detail-item">
+            <span>End:</span>
+            <span>MM/DD/YYYY</span>
+          </div>
+          <div class="detail-item">
+            <span>Payday:</span>
+            <span>MM/DD/YYYY</span>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="payroll-history-box">
+        <h3>Payroll History</h3>
+        <div class="payroll-details">
+          <div class="payroll-item">
+            <span>Salary:</span>
+            <span class="value">$XXXXX</span>
+          </div>
+          <div class="payroll-item">
+            <span>Bonus:</span>
+            <span class="value">$XXXXX</span>
+          </div>
+          <div class="payroll-item">
+            <span>Deduction:</span>
+            <span class="value">-$XXXXX</span>
+          </div>
+          <div class="payroll-item">
+            <span>Net Pay:</span>
+            <span class="value">$XXXXX</span>
+          </div>
+        </div>
+      </div>
+      <script>
+        
+        document.addEventListener("DOMContentLoaded", function() {
+          var profileButton = document.querySelector(".profile-button");
+          var popup = document.querySelector(".popup");
+          var closePopup = document.querySelector(".close");
+        
+          profileButton.addEventListener("click", function() {
+            popup.style.display = "block";
+          });
+        
+          closePopup.addEventListener("click", function() {
+            popup.style.display = "none";
+          });
+        });
+      </script>
+      </html>
