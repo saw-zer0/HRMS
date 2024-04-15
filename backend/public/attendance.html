@@ -11,7 +11,7 @@
 
 <div class="wrapper">
   <div class="sidebar">
-    <h2><img src="image/LOGO.png" class="logo"></h2>
+    <h2><img src="/LOGO.png" class="logo"></h2>
     <ul>
       <li class="home"><a href="#" class="nav-item">Home</a></li>
       <li class="profile"><a href="#" class="nav-item">Profile</a></li>
@@ -72,7 +72,7 @@
           </div>
         </div>
         <div class="clock-buttons">
-          <button class="clock-in-btn">Clock In</button>
+          <button class="clock-in-btn" id="clock-in-button">Clock In</button>
           <button class="clock-out-btn">Clock Out</button>
         </div>
         
@@ -92,16 +92,38 @@
                     <td>2024-04-01</td>
                     <td>08:00 AM</td>
                     <td>05:00 PM</td>
-                    <td><button>Apply</button></td>
+                    <td><button class="apply-correction-btn">Apply</button></td>
                 </tr>
             
             </tbody>
         </table>
         </div>
       </div>
+      <div class="correction-popup" id="correction-popup">
+        <span class="popup-content">
+          <span class="close" id="close-correction">&times;</span>
+          <h3>Apply Correction</h3>
+          <form id="correction-form">
+            <label for="employee-name">Employee Name:</label>
+            <input type="text" id="employee-name" name="employee-name" required><br><br>
+            
+            <label for="date">Date:</label>
+            <input type="text" id="date" name="date" required><br><br>
+            
+            <label for="reason">Reason:</label>
+            <textarea id="reason" name="reason" required></textarea><br><br>
+            
+            <div class="button-container">
+              <button type="button" id="cancel-correction">Cancel</button>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </span>
+      </div>
+
       
       <script>
-        // JavaScript code goes here
+        
         document.addEventListener("DOMContentLoaded", function() {
           var profileButton = document.querySelector(".profile-button");
           var popup = document.querySelector(".popup");
@@ -115,6 +137,81 @@
             popup.style.display = "none";
           });
         });
+
+    document.addEventListener("DOMContentLoaded", function() {
+    var applyCorrectionButtons = document.querySelectorAll(".apply-correction-btn");
+    var correctionPopup = document.getElementById("correction-popup");
+    var closeCorrection = document.getElementById("close-correction");
+    var cancelCorrection = document.getElementById("cancel-correction");
+
+    
+    applyCorrectionButtons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        
+        var date = this.parentNode.parentNode.firstElementChild.innerText;
+        document.getElementById("date").value = date;
+        
+        correctionPopup.style.display = "block";
+      });
+    });
+
+    
+    closeCorrection.addEventListener("click", function() {
+      correctionPopup.style.display = "none";
+    });
+
+    
+    cancelCorrection.addEventListener("click", function() {
+      correctionPopup.style.display = "none";
+    });
+
+   
+    document.getElementById("correction-form").addEventListener("submit", function(event) {
+      event.preventDefault(); 
+
+      var employeeName = document.getElementById("employee-name").value;
+      var date = document.getElementById("date").value;
+      var reason = document.getElementById("reason").value;
+
+      correctionPopup.style.display = "none";
+    });
+  });
+  document.getElementById("clock-in-button").addEventListener("click", async () => {
+    try {
+        
+        const response = await fetch("/clock-in", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({})  
+        });
+        if (!response.ok) {
+            throw new Error("Failed to clock in");
+        }
+        console.log("Clock-in successful");
+    } catch (error) {
+        console.error("Error:", error.message);
+    }
+});
+
+fetch("/attendance")
+    .then(response => response.json())
+    .then(data => {
+        // Populate attendance time sheet table with data
+        const tableBody = document.querySelector(".time-sheet table tbody");
+        data.forEach(entry => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${entry.date}</td>
+                <td>${entry.clock_in}</td>
+                <td>${entry.clock_out}</td>
+                <td><button class="apply-correction-btn">Apply</button></td>
+            `;
+            tableBody.appendChild(row);
+        });
+    })
+    .catch(error => console.error("Error fetching attendance data:", error));F
       </script>
 </body>
 </html>
