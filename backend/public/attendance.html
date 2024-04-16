@@ -73,7 +73,7 @@
         </div>
         <div class="clock-buttons">
           <button class="clock-in-btn" id="clock-in-button">Clock In</button>
-          <button class="clock-out-btn">Clock Out</button>
+          <button class="clock-out-btn" id="clock-out-button">Clock Out</button>
         </div>
         
         <div class="time-sheet">
@@ -123,7 +123,7 @@
 
       
       <script>
-        
+        //profile popup
         document.addEventListener("DOMContentLoaded", function() {
           var profileButton = document.querySelector(".profile-button");
           var popup = document.querySelector(".popup");
@@ -137,7 +137,7 @@
             popup.style.display = "none";
           });
         });
-
+      //apply correction popup
     document.addEventListener("DOMContentLoaded", function() {
     var applyCorrectionButtons = document.querySelectorAll(".apply-correction-btn");
     var correctionPopup = document.getElementById("correction-popup");
@@ -176,6 +176,7 @@
       correctionPopup.style.display = "none";
     });
   });
+  //clockin button
   document.getElementById("clock-in-button").addEventListener("click", async () => {
     try {
         
@@ -195,10 +196,30 @@
     }
 });
 
+//clockout button
+document.getElementById("clock-out-button").addEventListener("click", async () => {
+    try {
+        
+        const response = await fetch("/clock-out", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({})  
+        });
+        if (!response.ok) {
+            throw new Error("Failed to clock out");
+        }
+        console.log("Clock-out successful");
+    } catch (error) {
+        console.error("Error:", error.message);
+    }
+});
+//fetch clock-in data from databse
 fetch("/attendance")
     .then(response => response.json())
     .then(data => {
-        // Populate attendance time sheet table with data
+      
         const tableBody = document.querySelector(".time-sheet table tbody");
         data.forEach(entry => {
             const row = document.createElement("tr");
@@ -211,7 +232,26 @@ fetch("/attendance")
             tableBody.appendChild(row);
         });
     })
-    .catch(error => console.error("Error fetching attendance data:", error));F
+    .catch(error => console.error("Error fetching attendance data:", error));
+
+    //fetch clock-out data from database
+    // fetch("/attendance")
+    // .then(response => response.json())
+    // .then(data => {
+      
+    //     const tableBody = document.querySelector(".time-sheet table tbody");
+    //     data.forEach(entry => {
+    //         const row = document.createElement("tr");
+    //         row.innerHTML = `
+    //             <td>${entry.date}</td>
+    //             <td>${entry.clock_in}</td>
+    //             <td>${entry.clock_out}</td>
+    //             <td><button class="apply-correction-btn">Apply</button></td>
+    //         `;
+    //         tableBody.appendChild(row);
+    //     });
+    // })
+    // .catch(error => console.error("Error fetching attendance data:", error));
       </script>
 </body>
 </html>
