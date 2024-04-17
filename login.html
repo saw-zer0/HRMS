@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Login Page</title>
-        <link rel="stylesheet" href="login.css" />
-    </head>
-
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="logo-container">
+        <img src='/logo.png' alt="logo">
+    </div>
+    <div class="container">
+        <div class="image-container"></div>
         <div class="login-container">
-            <h2>Login</h2>
-            <form action="#">
-                <div class="input-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required />
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        required
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
+    
+                <h2>Login</h2>
+                <form on:submit={handleSubmit}>
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter Username" bind:value={username} required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter Password" bind:value={password} required>
+                    </div>
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe" bind:checked={rememberMe}>
+                        <label for="rememberMe">Remember Me</label>
+                    </div>
+                    <div class="forgot-password">
+                        <Link to="/forgot">Forgot Password?</Link>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
         </div>
-    </body>
+    </div>
+</body>
 </html>
