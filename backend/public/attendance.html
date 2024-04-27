@@ -137,45 +137,8 @@
             popup.style.display = "none";
           });
         });
-      //apply correction popup
-    document.addEventListener("DOMContentLoaded", function() {
-    var applyCorrectionButtons = document.querySelectorAll(".apply-correction-btn");
-    var correctionPopup = document.getElementById("correction-popup");
-    var closeCorrection = document.getElementById("close-correction");
-    var cancelCorrection = document.getElementById("cancel-correction");
-
-    
-    applyCorrectionButtons.forEach(function(button) {
-      button.addEventListener("click", function() {
-        
-        var date = this.parentNode.parentNode.firstElementChild.innerText;
-        document.getElementById("date").value = date;
-        
-        correctionPopup.style.display = "block";
-      });
-    });
-
-    
-    closeCorrection.addEventListener("click", function() {
-      correctionPopup.style.display = "none";
-    });
-
-    
-    cancelCorrection.addEventListener("click", function() {
-      correctionPopup.style.display = "none";
-    });
-
-   
-    document.getElementById("correction-form").addEventListener("submit", function(event) {
-      event.preventDefault(); 
-
-      var employeeName = document.getElementById("employee-name").value;
-      var date = document.getElementById("date").value;
-      var reason = document.getElementById("reason").value;
-
-      correctionPopup.style.display = "none";
-    });
-  });
+     
+  
   //clockin button
   document.getElementById("clock-in-button").addEventListener("click", async () => {
     try {
@@ -217,41 +180,51 @@ document.getElementById("clock-out-button").addEventListener("click", async () =
 });
 //fetch clock-in data from databse
 fetch("/attendance")
-    .then(response => response.json())
-    .then(data => {
-      
-        const tableBody = document.querySelector(".time-sheet table tbody");
-        data.forEach(entry => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${entry.date}</td>
-                <td>${entry.clock_in}</td>
-                <td>${entry.clock_out}</td>
-                <td><button class="apply-correction-btn">Apply</button></td>
-            `;
-            tableBody.appendChild(row);
-        });
-    })
-    .catch(error => console.error("Error fetching attendance data:", error));
+  .then(response => response.json())
+  .then(data => {
+    const tableBody = document.querySelector(".time-sheet table tbody");
 
-    //fetch clock-out data from database
-    // fetch("/attendance")
-    // .then(response => response.json())
-    // .then(data => {
-      
-    //     const tableBody = document.querySelector(".time-sheet table tbody");
-    //     data.forEach(entry => {
-    //         const row = document.createElement("tr");
-    //         row.innerHTML = `
-    //             <td>${entry.date}</td>
-    //             <td>${entry.clock_in}</td>
-    //             <td>${entry.clock_out}</td>
-    //             <td><button class="apply-correction-btn">Apply</button></td>
-    //         `;
-    //         tableBody.appendChild(row);
-    //     });
-    // })
-    // .catch(error => console.error("Error fetching attendance data:", error));
+    data.forEach(entry => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${entry.date}</td>
+        <td>${entry.clock_in}</td>
+        <td>${entry.clock_out}</td>
+        <td><button class="apply-correction-btn">Apply</button></td>
+      `;
+      tableBody.appendChild(row);
+
+      const applyCorrectionButton = row.querySelector(".apply-correction-btn");
+      const correctionPopup = document.getElementById("correction-popup");
+
+      applyCorrectionButton.addEventListener("click", function() {
+        const date = entry.date;
+        document.getElementById("date").value = date;
+        correctionPopup.style.display = "block";
+      });
+    });
+  })
+  .catch(error => console.error("Error fetching attendance data:", error));
+
+document.getElementById("close-correction").addEventListener("click", function() {
+  document.getElementById("correction-popup").style.display = "none";
+});
+
+document.getElementById("cancel-correction").addEventListener("click", function() {
+  document.getElementById("correction-popup").style.display = "none";
+});
+
+document.getElementById("correction-form").addEventListener("submit", function(event) {
+  event.preventDefault();
+  const employeeName = document.getElementById("employee-name").value;
+  const date = document.getElementById("date").value;
+  const reason = document.getElementById("reason").value;
+
+  document.getElementById("correction-popup").style.display = "none";
+});
+
+
       </script>
+      
 </body>
 </html>
