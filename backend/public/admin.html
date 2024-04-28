@@ -32,7 +32,6 @@
       </div>
       <div class="popup" id="popup">
         <span class="popup-content">
-          
           <span class="close" id="close">&times;</span>
            <div class="image-container">
             <img src="profile.png" alt="Image" class="popup-image">
@@ -44,42 +43,132 @@
           <p>Email: nabin@example.com</p>
           <p>Address: kamalpokhari</p>
           <p>Phone number: 98000000</p>
-        
         </span>
       </div>
       <button class="log-out">Logout</button>
     </div>
-
-    <div class="attendance-content">
-        <h2>Attendance</h2>
-        </div>
-       <div class="view-buttons">
-        <button>View records</button>
-         
-       </div>
-
-       <div class="attendance-correction">
-        <h2>Attendance Correction Requests</h2>
-        <div class="view-requests">
-          <button>View Requests</button>
-        </div>
+    
+    <div class="attendance-correction">
+      <h2>Attendance Correction Requests</h2>
+      <div class="view-requests">
+        <button id="view-requests-btn">View requests</button>
       </div>
-      
-        
-    <script>
-        //profile popup
-        document.addEventListener("DOMContentLoaded", function() {
-          var profileButton = document.querySelector(".profile-button");
-          var popup = document.querySelector(".popup");
-          var closePopup = document.querySelector(".close");
-        
-          profileButton.addEventListener("click", function() {
-            popup.style.display = "block";
-          });
-        
-          closePopup.addEventListener("click", function() {
-            popup.style.display = "none";
-          });
-        });
-     
-  </script>
+    </div>
+    
+    <div class="attendance-content">
+      <h2>Attendance</h2>
+    </div>
+    
+    <div class="view-buttons">
+      <button id="view-records-btn">View records</button>
+    </div>
+    
+    <div class="records-container" id="records-container" style="display: none;">
+      <span class="close-btn" id="close-records">&times;</span>
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th>Employee Name</th>
+            <th>Clock In</th>
+            <th>Clock Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows will be populated dynamically -->
+          <tr>
+            <td>John Doe</td>
+            <td>09:00 AM</td>
+            <td>05:00 PM</td>
+          </tr>
+          <tr>
+            <td>Jane Smith</td>
+            <td>08:30 AM</td>
+            <td>04:45 PM</td>
+          </tr>
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="requests-container" id="requests-container" style="display: none;">
+      <span class="close-btn" id="close-requests">&times;</span>
+      <table class="requests-table">
+        <thead>
+          <tr>
+            <th>Request Type</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows will be populated dynamically -->
+          <tr>
+            <td>Leave</td>
+            <td>Pending</td>
+            <td>2024-04-28</td>
+          </tr>
+          <tr>
+            <td>Shift Change</td>
+            <td>Approved</td>
+            <td>2024-04-25</td>
+          </tr>
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var viewRecordsBtn = document.getElementById("view-records-btn");
+    var closeRecordsBtn = document.getElementById("close-records");
+    var recordsContainer = document.getElementById("records-container");
+
+    viewRecordsBtn.addEventListener("click", function() {
+      if (recordsContainer.style.display === "none") {
+        recordsContainer.style.display = "block";
+      } else {
+        recordsContainer.style.display = "none";
+      }
+    });
+
+    closeRecordsBtn.addEventListener("click", function() {
+      // Hide the records container when close button is clicked
+      recordsContainer.style.display = "none";
+    });
+
+    var viewRequestsBtn = document.getElementById("view-requests-btn");
+    var closeRequestsBtn = document.getElementById("close-requests");
+    var requestsContainer = document.getElementById("requests-container");
+
+    viewRequestsBtn.addEventListener("click", function() {
+      if (requestsContainer.style.display === "none") {
+        requestsContainer.style.display = "block";
+      } else {
+        requestsContainer.style.display = "none";
+      }
+    });
+
+    closeRequestsBtn.addEventListener("click", function() {
+      // Hide the requests container when close button is clicked
+      requestsContainer.style.display = "none";
+    });
+
+    //profile popup
+    var profileButton = document.querySelector(".profile-button");
+    var popup = document.querySelector(".popup");
+    var closePopup = document.querySelector(".close");
+
+    profileButton.addEventListener("click", function() {
+      popup.style.display = "block";
+    });
+
+    closePopup.addEventListener("click", function() {
+      popup.style.display = "none";
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -161,12 +161,12 @@
 
         if (data.message === "Correct user. Please clock in.") {
             alert(data.message);
-            clockInBtn.disabled = false; // Enable clock-in button
-            clockOutBtn.disabled = false; // Enable clock-out button
+            clockInBtn.disabled = false; 
+            clockOutBtn.disabled = false; 
         } else {
             alert("Invalid user ID. Please try again.");
-            clockInBtn.disabled = true; // Disable clock-in button
-            clockOutBtn.disabled = true; // Disable clock-out button
+            clockInBtn.disabled = true; 
+            clockOutBtn.disabled = true; 
         }
     } catch (error) {
         console.error("Error validating user:", error);
