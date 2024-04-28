@@ -319,3 +319,30 @@ button:hover {
 .container .Declined p {
     margin-left: 10px; 
 }
+
+search-bar {
+  margin-bottom: 20px; /* Add spacing between the search bar and the table */
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.search-button {
+  padding: 8px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: auto; /* Set width to auto to fit content */
+  margin-left: 10px; /* Add margin between input field and button */
+}

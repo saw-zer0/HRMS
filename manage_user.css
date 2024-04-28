@@ -436,16 +436,21 @@ tr:hover {
   max-height: 800px; /* Set a maximum height for the popup */
   overflow-y: auto; /* Add vertical scroll if content exceeds height */
 }
-/* Add this CSS to your existing admin_home.css file or in a separate file */
+
+
+/* .form-group input[type="date"] {
+  width: 120px; 
+} */
+
 
 .popup-content .form-group {
-  margin-bottom: 20px; /* Adjust spacing between form groups */
+  margin-bottom: 20px; 
   display: flex;
   align-items: center;
 }
 
 .popup-content .form-group label {
-  width: 100px; /* Adjust label width */
+  width: 100px; 
   text-align: right;
   margin-right: 10px; /* Adjust spacing between label and input */
 }
@@ -453,3 +458,5 @@ tr:hover {
 .popup-content .form-group input {
   flex: 1; /* Take up remaining space */
 }
+
+
