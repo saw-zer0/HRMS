@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login Page</title>
+        <link rel="stylesheet" href="./src/auth/login.css" />
+        <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"
+        ></script>
+    </head>
+
+    <body>
+        <div class="logo-container">
+            <img src="/logo.png" alt="logo" />
+        </div>
+        <div class="container">
+            <div class="image-container"></div>
+            <div class="login-container">
+                <h2>Login</h2>
+                <form on:submit="{handleSubmit}">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input
+                            type="text"
+                            id="email"
+                            placeholder="Enter Username"
+                            bind:value="{username}"
+                            required
+                        />
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter Password"
+                            bind:value="{password}"
+                            required
+                        />
+                    </div>
+                    <div class="remember-me">
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            bind:checked="{rememberMe}"
+                        />
+                        <label for="rememberMe">Remember Me</label>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script>
+        $(document).ready(function () {
+            $("form").submit(async function (event) {
+                event.preventDefault() // Prevent form from submitting normally
+                // Perform form submission logic here
+                // You can use AJAX to send the form data to the server
+                // For example:
+                const formData = {
+                    email: $("#email").val(),
+                    password: $("#password").val(),
+                    rememberMe: $("#rememberMe").is(":checked"),
+                }
+                try {
+                    const response = await fetch("/auth/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(formData),
+                    })
+                    if (response.ok) {
+                        window.location.href = "/home.html"
+                    } else {
+                        console.error("Error:", response.statusText)
+                    }
+                } catch (error) {
+                    console.error("Error:", error.message)
+                }
+            })
+        })
+    </script>
+</html>
