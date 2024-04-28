@@ -44,6 +44,11 @@
           <p>Email: anup@example.com</p>
           <p>Address: kamalpokhari</p>
           <p>Phone number: 98000000</p>
+          <label for="user-id">Enter Your ID:</label>
+          <input type="text" id="user-id" name="user-id" required>
+          <button id="validateUserIdBtn">Validate</button>
+          
+          
         
         </span>
       </div>
@@ -124,60 +129,92 @@
       
       <script>
         //profile popup
-        document.addEventListener("DOMContentLoaded", function() {
-          var profileButton = document.querySelector(".profile-button");
-          var popup = document.querySelector(".popup");
-          var closePopup = document.querySelector(".close");
-        
-          profileButton.addEventListener("click", function() {
-            popup.style.display = "block";
-          });
-        
-          closePopup.addEventListener("click", function() {
-            popup.style.display = "none";
-          });
-        });
-     
-  
-  //clockin button
-  document.getElementById("clock-in-button").addEventListener("click", async () => {
+       
+          document.addEventListener("DOMContentLoaded", function() {
+    const profileButton = document.querySelector(".profile-button");
+    const popup = document.querySelector(".popup");
+    const closePopup = document.querySelector(".close");
+    const validateBtn = document.getElementById("validateUserIdBtn");
+    const userIdInput = document.getElementById("user-id");
+    const clockInBtn = document.getElementById("clock-in-button");
+    const clockOutBtn = document.getElementById("clock-out-button");
+
+    profileButton.addEventListener("click", function() {
+        popup.style.display = "block";
+    });
+
+    closePopup.addEventListener("click", function() {
+        popup.style.display = "none";
+    });
+
+    validateBtn.addEventListener("click", async () => {
+    const userId = userIdInput.value.trim();
+
+    if (!userId) {
+        alert("Please enter a valid user ID.");
+        return;
+    }
+
     try {
-        
+        const response = await fetch(`/validate-user/${userId}`);
+        const data = await response.json();
+
+        if (data.message === "Correct user. Please clock in.") {
+            alert(data.message);
+            clockInBtn.disabled = false; // Enable clock-in button
+            clockOutBtn.disabled = false; // Enable clock-out button
+        } else {
+            alert("Invalid user ID. Please try again.");
+            clockInBtn.disabled = true; // Disable clock-in button
+            clockOutBtn.disabled = true; // Disable clock-out button
+        }
+    } catch (error) {
+        console.error("Error validating user:", error);
+        alert("An error occurred while validating the user ID.");
+    }
+});
+
+clockInBtn.addEventListener("click", async () => {
+    try {
         const response = await fetch("/clock-in", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({})  
+            body: JSON.stringify({ userId: userIdInput.value.trim() }) // Send the user ID for clock-in
         });
         if (!response.ok) {
             throw new Error("Failed to clock in");
         }
-        console.log("Clock-in successful");
+        alert("Clock-in successful");
     } catch (error) {
         console.error("Error:", error.message);
+        alert("Failed to clock in. Please try again.");
     }
 });
 
-//clockout button
-document.getElementById("clock-out-button").addEventListener("click", async () => {
+clockOutBtn.addEventListener("click", async () => {
     try {
-        
         const response = await fetch("/clock-out", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({})  
+            body: JSON.stringify({ userId: userIdInput.value.trim() }) // Send the user ID for clock-out
         });
         if (!response.ok) {
             throw new Error("Failed to clock out");
         }
-        console.log("Clock-out successful");
+        alert("Clock-out successful");
     } catch (error) {
         console.error("Error:", error.message);
+        alert("Failed to clock out. Please try again.");
     }
 });
+
+});
+
+
 //fetch clock-in data from databse
 fetch("/attendance")
   .then(response => response.json())
