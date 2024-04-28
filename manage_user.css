@@ -374,3 +374,82 @@ th {
 tr:hover {
     background-color: #f5f5f5;
 }
+
+#addUserPopup .popup-content {
+  /* Styles for the new popup content */
+  width: 80%; /* Adjust the width as needed */
+  height: 80%; /* Adjust the height as needed */
+  overflow-y: auto; /* Add vertical scroll if content exceeds height */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#addUserPopup .popup-content form {
+  margin-top: 20px; 
+}
+
+#addUserPopup .popup-content form .form-group {
+  margin-bottom: 20px; 
+}
+
+.final-add{
+  margin-top: 20px;
+  background-color: #F6AF43;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  width: 90%; /* Adjust width to 90% of the viewport */
+  max-width: 1000px; /* Set a maximum width for the popup */
+  height: 80%; /* Adjust height to 80% of the viewport */
+  max-height: 800px; /* Set a maximum height for the popup */
+  overflow-y: auto; /* Add vertical scroll if content exceeds height */
+}
+/* Add this CSS to your existing admin_home.css file or in a separate file */
+
+.popup-content .form-group {
+  margin-bottom: 20px; /* Adjust spacing between form groups */
+  display: flex;
+  align-items: center;
+}
+
+.popup-content .form-group label {
+  width: 100px; /* Adjust label width */
+  text-align: right;
+  margin-right: 10px; /* Adjust spacing between label and input */
+}
+
+.popup-content .form-group input {
+  flex: 1; /* Take up remaining space */
+}
