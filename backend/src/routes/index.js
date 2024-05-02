@@ -10,8 +10,8 @@ const authenticateToken = require('./helper/auth');
 
 
 router.use("/auth", authRouter);
-router.use("/user", authenticateToken, userRouter);
-router.use("/attendance", authenticateToken, attendanceRouter);
-router.use("/leave", authenticateToken, leaveRouter);
+router.use("/user", userRouter);
+router.use("/attendance", attendanceRouter);
+router.use("/leaves",  leaveRouter);
 
 module.exports = router;

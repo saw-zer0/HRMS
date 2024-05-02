@@ -30,7 +30,7 @@ const getUserLeave = async (req, res, next) => {
 }
 const getBulkLeave = async (req, res, next) => {
     try {
-        const query = "SELECT * FROM leave";
+        const query = "SELECT l.*, u.full_name FROM leave l JOIN users u ON l.user_id = u.user_id";
         const result = await client.query(query);
         const leaves = result.rows;
         if(!leaves) return res.sendStatus(404);

@@ -32,8 +32,13 @@ router.post('/token', (req, res) => {
     // Get user with given email from database
     const result = await client.query('SELECT * FROM users WHERE email = $1', [email]);
     const user = result.rows[0];
+    if (!user) {
+      return res.sendStatus(404);
+    }
     // Verify password using bcrypt
-    if (!user || !bcrypt.compare(password, user.password)) {
+    const validPassword = await bcrypt.compare(password, user.password);
+    console.log(validPassword);
+    if (!validPassword) {
         return res.sendStatus(401);
     }
     const accessToken = generateAccessToken(user)

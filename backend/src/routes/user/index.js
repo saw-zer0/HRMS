@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 
 const client = require("../../database");
+const sendMail = require("../helper/sendMail");
 
 router.get("/", async (req, res) => {
     try {
@@ -34,17 +35,19 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
-        console.log(req.body);
         const hashedPassword = await bcrypt.hash(password, 10);
-        const query = "INSERT INTO users (full_name, email, password, role) VALUES ($1, $2, $3, $4)";
+        const query = "INSERT INTO users (full_name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *";
         const values = [name, email, hashedPassword, role];
         const result = await client.query(query, values);
+        console.log(result)
         const newUser = result.rows[0];
 
         // Send email to user notifying them of their account creation with nodemailer
+        sendMail();
 
         // Send the newly created user back in the response
         res.json(newUser);
+        
     } catch (error) {
         console.error("Error creating user:", error);
         res.sendStatus(500);

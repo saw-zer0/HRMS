@@ -75,7 +75,7 @@ router.put("/approve/:id", async (req, res) => {
         const values = ["APPROVED", req.params.id];
         await client.query(query, values);
 
-        res.sendStatus(200);
+        res.json({status: "APPROVED"});
     } catch (error) {
         console.error("Error approving leave:", error);
         res.sendStatus(500);
@@ -88,7 +88,7 @@ router.put("/reject/:id", async (req, res) => {
         const values = ["REJECTED", req.params.id];
         await client.query(query, values);
 
-        res.sendStatus(200);
+        res.json({status: "REJECTED"});
     } catch (error) {
         console.error("Error rejecting leave:", error);
         res.sendStatus(500);

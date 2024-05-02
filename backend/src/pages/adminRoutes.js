@@ -4,7 +4,7 @@ const path = require("path");
 
 const srcPath = path.join(__dirname, "../../public/src");
 
-router.use("/user", (req, res) => {
+router.get("/user", (req, res) => {
     res.sendFile(path.join(srcPath, "admin/manage_user.html"));
 })
 router.get("/attendance", (req, res) => {

@@ -20,7 +20,7 @@
             <div class="image-container"></div>
             <div class="login-container">
                 <h2>Login</h2>
-                <form on:submit="{handleSubmit}">
+                <form>
                     <div class="input-group">
                         <label for="email">Email</label>
                         <input
@@ -70,17 +70,16 @@
                     rememberMe: $("#rememberMe").is(":checked"),
                 }
                 try {
-                    const response = await fetch("/auth/login", {
+                    const response = await fetch("/api/auth/login", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify(formData),
                     })
+                    console.log(response.json())
                     if (response.ok) {
-                        window.location.href = "/home.html"
-                    } else {
-                        console.error("Error:", response.statusText)
+                        window.location.href = "/"
                     }
                 } catch (error) {
                     console.error("Error:", error.message)

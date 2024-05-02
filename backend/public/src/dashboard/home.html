@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Home</title>
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="src/dashboard/home.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
 <body>
@@ -14,11 +14,11 @@
   <div class="sidebar">
     <h2><img src="image/LOGO.png" class="logo"></h2>
     <ul>
-      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('home.html')">Home</a></li>
-      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('profile.html')">Profile</a></li>
-      <li class="attendance"><a href="#" class="nav-item" onclick="navigateToPage('attendance.html')">Attendance</a></li>
-      <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('leave.html')">Leave</a></li>
-      <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('payroll.html')">Payroll</a></li>
+      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('home')">Home</a></li>
+      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('profile')">Profile</a></li>
+      <li class="attendance"><a href="#" class="nav-item" onclick="navigateToPage('attendance')">Attendance</a></li>
+      <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('leave')">Leave</a></li>
+      <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('payroll')">Payroll</a></li>
     </ul>
 
     <div class="social_media">
@@ -123,7 +123,7 @@
 
   function confirmLogout() {
     if (confirm("Are you sure you want to logout?")) {
-      window.location.href = "logout.html";
+      window.location.href = "logout";
     }
   }
 </script>

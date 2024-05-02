@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Admin_Home</title>
-    <link rel="stylesheet" href="src/admin/manage_user.css">
+    <link rel="stylesheet" href="../../src/admin/manage_user.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -14,11 +15,11 @@
   <div class="sidebar">
     <h2><img src="image/LOGO.png" class="logo"></h2>
     <ul>
-      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('home.html')">Home</a></li>
-      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('profile.html')">Profile</a></li>
-      <li class="attendance"><a href="#" class="nav-item" onclick="navigateToPage('attendance.html')">Attendance</a></li>
-      <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('leave.html')">Leave</a></li>
-      <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('payroll.html')">Payroll</a></li>
+      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('/')">Home</a></li>
+      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('/profile')">Profile</a></li>
+      <li class="attendance"><a href="#" class="nav-item" onclick="navigateToPage('/admin/attendance')">Attendance</a></li>
+      <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('/admin/leave')">Leave</a></li>
+      <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('/admin/payroll')">Payroll</a></li>
     </ul>
 
     <div class="social_media">
@@ -37,21 +38,194 @@
     </div>
 
         <div class="info">
-           
+          <h2>User Management</h2>
+
+
+          <button id="addUsersBtn" class="add-users-btn" onclick="showAddUserPopup()">Add Users</button>
+          
+          <table>
+              <thead>
+                  <tr>
+                      <th>Emp ID</th>
+                      <th>Emp Name</th>
+                      <th>Roles</th>
+                      <th>Joined Date</th>
+                      <th>Company Email</th>
+                      <th>Phone</th>
+                      <th>Gender</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                
+            </tbody>
+            
+          </table>
   </div>
 
+  <div id="addUserPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeAddUserPopup()">&times;</span>
+        <h2>Add User</h2>
+        <form id="addUserForm">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+              <label for="role">Role:</label>
+              <select id="role" name="role" required>
+                  <option value="ADMIN">Admin</option>
+                  <option value="EMPLOYEE">Employee</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="contactInfo">Contact Info:</label>
+                <input type="text" id="contactInfo" name="contactInfo" required>
+            </div>
+            <div class="form-group">
+              <label for="joinedDate">Joined Date:</label>
+              <input type="date" id="joinedDate" name="joinedDate" required>
+          </div>
+            <button type="submit" class="final-add">Add User</button>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+
+</div>
   </div>
   </div>
 </div>
 
 <script>
+  function showAddUserPopup() {
+    document.getElementById("addUserPopup").style.display = "block";
+  }
+  
+  // Function to close the add user popup
+  function closeAddUserPopup() {
+    document.getElementById("addUserPopup").style.display = "none";
+  }
+  
+  document.getElementById("addUsersBtn").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    showAddUserPopup(); // Show the "Add User" popup
+  });
+  
+  // document.getElementById("manage-btn").addEventListener("click", function(event) {
+  //   event.preventDefault(); // Prevent the default form submission behavior
+  //   showAddUserPopup();
+  // });
+  // Add event listener to the "Add User" form to handle form submission
+
+  const dispalyUsers = async () => {
+    const response = await fetch("/api/user");
+    const data = await response.json();
+    console.log(data);
+    // Display users in a table
+    data.forEach(user => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${user.user_id}</td>
+        <td>${user.full_name}</td>
+        <td>${user.role}</td>
+        <td>${user.joinedDate}</td>
+        <td>${user.email}</td>
+        <td>${user.phone}</td>
+        <td>${user.gender}</td>
+        <td>
+          <button>Edit</button>
+          <button>Delete</button>
+        </td>
+      `;
+      document.querySelector("tbody").appendChild(row);
+    });
+  };
+
+  const clearUsers = () => {
+    document.querySelector("tbody").innerHTML = "";
+  };
+
+  $(document).ready(function() {
+    dispalyUsers();
+
+    $("#addUserForm").submit(function(event) {
+    const userCreateForm = $("#addUserForm")[0];
+      event.preventDefault(); // Prevent the default form submission behavior
+      const formData = new FormData(userCreateForm);
+      const name = formData.get("firstName")+formData.get("lastName");
+      const email = formData.get("email");
+      const gender = formData.get("gender");
+      const role = formData.get("role");
+      const contactInfo = formData.get("contactInfo");
+      const joinedDate = formData.get("joinedDate");
+      const password = "password123";
+      
+      const data = {
+        name,
+        email,
+        gender,
+        role,
+        contactInfo,
+        joinedDate,
+        password
+      };
+      console.log(data);
+
+      fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => response.json())
+        .then(result => {
+          // Handle the response from the server
+          console.log(result);
+          clearUsers();
+          dispalyUsers();
+          closeAddUserPopup(); // Close the add user popup after form submission
+        })
+        .catch(error => {
+          // Handle any errors that occurred during the request
+          console.error(error);
+        });
+      // closeAddUserPopup(); // Close the add user popup after form submission
+    });
+  });
+  
+    function showPopup() {
+      document.getElementById("popup").style.display = "block";
+  }
+  
+  function closePopup() {
+      document.getElementById("popup").style.display = "none";
+  }
   function navigateToPage(page) {
     window.location.href = page;
   }
 
   function confirmLogout() {
     if (confirm("Are you sure you want to logout?")) {
-      window.location.href = "logout.html";
+      window.location.href = "logout";
     }
   }
 </script>

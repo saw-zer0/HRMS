@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Admin_Home</title>
-    <link rel="stylesheet" href="src/admin/admin_home.css">
+    <link rel="stylesheet" href="../../src/admin/admin_home.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
 <body>
@@ -14,11 +14,11 @@
   <div class="sidebar">
     <h2><img src="image/LOGO.png" class="logo"></h2>
     <ul>
-      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('home.html')">Home</a></li>
-      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('profile.html')">Profile</a></li>
-      <li class="attendance"><a href="#" class="nav-item" onclick="navigateToPage('attendance.html')">Attendance</a></li>
-      <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('leave.html')">Leave</a></li>
-      <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('payroll.html')">Payroll</a></li>
+      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('home')">Home</a></li>
+      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('profile')">Profile</a></li>
+      <li class="attendance"><a href="#" class="nav-item" onclick="navigateToPage('attendance')">Attendance</a></li>
+      <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('leave')">Leave</a></li>
+      <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('payroll')">Payroll</a></li>
     </ul>
 
     <div class="social_media">
@@ -33,7 +33,7 @@
               <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
             </div>
         <button class="log-out" onclick="confirmLogout()">Logout</button>
-        
+       
     </div>
 
         <div class="info">
@@ -110,14 +110,14 @@
                         <span class="close" onclick="closeAddUserPopup()">&times;</span>
                         <h2>Add User</h2>
                         <form id="addUserForm">
-                            <div class="form-group">
-                                <label for="firstName">First Name:</label>
-                                <input type="text" id="firstName" name="firstName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name:</label>
-                                <input type="text" id="lastName" name="lastName" required>
-                            </div>
+                          <div class="form-group">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="email" id="email" name="email" required>
@@ -208,7 +208,7 @@ function closePopup() {
 
   function confirmLogout() {
     if (confirm("Are you sure you want to logout?")) {
-      window.location.href = "logout.html";
+      window.location.href = "logout";
     }
   }
 </script>
