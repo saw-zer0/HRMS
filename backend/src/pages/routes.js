@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 
-const srcPath = path.join(__dirname, "../../public/src");
 const adminRouter = require("./adminRoutes");
+const srcPath = path.join(__dirname, "../../public/src");
 
 //Dashboard
 router.get("/", (req, res) => {
-    res.sendFile(path.join(srcPath, "admin/admin_home.html"));
+
+    res.sendFile(path.join(srcPath, "dashboard/home.html"));
+
 })
 
 //admin routes

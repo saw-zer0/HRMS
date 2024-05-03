@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const client = require("../../database");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const authenticateToken = require("../helper/auth");
+const client = require("../../database");
+const authenticateToken = require("./auth");
 
 const refreshTokens = [];
 
