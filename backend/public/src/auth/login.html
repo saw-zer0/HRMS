@@ -4,7 +4,12 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Login Page</title>
-        <link rel="stylesheet" href="./login.css" />
+        <link rel="stylesheet" href="./src/auth/login.css" />
+        <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"
+        ></script>
     </head>
 
     <body>
@@ -15,12 +20,12 @@
             <div class="image-container"></div>
             <div class="login-container">
                 <h2>Login</h2>
-                <form on:submit="{handleSubmit}">
+                <form>
                     <div class="input-group">
-                        <label for="username">Username</label>
+                        <label for="email">Email</label>
                         <input
                             type="text"
-                            id="username"
+                            id="email"
                             placeholder="Enter Username"
                             bind:value="{username}"
                             required
@@ -52,4 +57,34 @@
             </div>
         </div>
     </body>
+    <script>
+        $(document).ready(function () {
+            $("form").submit(async function (event) {
+                event.preventDefault() // Prevent form from submitting normally
+                // Perform form submission logic here
+                // You can use AJAX to send the form data to the server
+                // For example:
+                const formData = {
+                    email: $("#email").val(),
+                    password: $("#password").val(),
+                    rememberMe: $("#rememberMe").is(":checked"),
+                }
+                try {
+                    const response = await fetch("/api/auth/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(formData),
+                    })
+                    console.log(response.json())
+                    if (response.ok) {
+                        window.location.href = "/"
+                    }
+                } catch (error) {
+                    console.error("Error:", error.message)
+                }
+            })
+        })
+    </script>
 </html>

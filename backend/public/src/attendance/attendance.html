@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance</title>
-    <link rel="stylesheet" href="attendance.css">
+    <link rel="stylesheet" href="src/attendance/attendance.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
 <body>
@@ -44,11 +44,6 @@
           <p>Email: anup@example.com</p>
           <p>Address: kamalpokhari</p>
           <p>Phone number: 98000000</p>
-          <label for="user-id">Enter Your ID:</label>
-          <input type="text" id="user-id" name="user-id" required>
-          <button id="validateUserIdBtn">Validate</button>
-          
-          
         
         </span>
       </div>
@@ -129,139 +124,134 @@
       
       <script>
         //profile popup
-       
-          document.addEventListener("DOMContentLoaded", function() {
-    const profileButton = document.querySelector(".profile-button");
-    const popup = document.querySelector(".popup");
-    const closePopup = document.querySelector(".close");
-    const validateBtn = document.getElementById("validateUserIdBtn");
-    const userIdInput = document.getElementById("user-id");
-    const clockInBtn = document.getElementById("clock-in-button");
-    const clockOutBtn = document.getElementById("clock-out-button");
+        document.addEventListener("DOMContentLoaded", function() {
+          var profileButton = document.querySelector(".profile-button");
+          var popup = document.querySelector(".popup");
+          var closePopup = document.querySelector(".close");
+        
+          profileButton.addEventListener("click", function() {
+            popup.style.display = "block";
+          });
+        
+          closePopup.addEventListener("click", function() {
+            popup.style.display = "none";
+          });
+        });
+      //apply correction popup
+    document.addEventListener("DOMContentLoaded", function() {
+    var applyCorrectionButtons = document.querySelectorAll(".apply-correction-btn");
+    var correctionPopup = document.getElementById("correction-popup");
+    var closeCorrection = document.getElementById("close-correction");
+    var cancelCorrection = document.getElementById("cancel-correction");
 
-    profileButton.addEventListener("click", function() {
-        popup.style.display = "block";
+    
+    applyCorrectionButtons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        
+        var date = this.parentNode.parentNode.firstElementChild.innerText;
+        document.getElementById("date").value = date;
+        
+        correctionPopup.style.display = "block";
+      });
     });
 
-    closePopup.addEventListener("click", function() {
-        popup.style.display = "none";
+    
+    closeCorrection.addEventListener("click", function() {
+      correctionPopup.style.display = "none";
     });
 
-    validateBtn.addEventListener("click", async () => {
-    const userId = userIdInput.value.trim();
+    
+    cancelCorrection.addEventListener("click", function() {
+      correctionPopup.style.display = "none";
+    });
 
-    if (!userId) {
-        alert("Please enter a valid user ID.");
-        return;
-    }
+   
+    document.getElementById("correction-form").addEventListener("submit", function(event) {
+      event.preventDefault(); 
 
+      var employeeName = document.getElementById("employee-name").value;
+      var date = document.getElementById("date").value;
+      var reason = document.getElementById("reason").value;
+
+      correctionPopup.style.display = "none";
+    });
+  });
+  //clockin button
+  document.getElementById("clock-in-button").addEventListener("click", async () => {
     try {
-        const response = await fetch(`/validate-user/${userId}`);
-        const data = await response.json();
-
-        if (data.message === "Correct user. Please clock in.") {
-            alert(data.message);
-            clockInBtn.disabled = false; 
-            clockOutBtn.disabled = false; 
-        } else {
-            alert("Invalid user ID. Please try again.");
-            clockInBtn.disabled = true; 
-            clockOutBtn.disabled = true; 
-        }
-    } catch (error) {
-        console.error("Error validating user:", error);
-        alert("An error occurred while validating the user ID.");
-    }
-});
-
-clockInBtn.addEventListener("click", async () => {
-    try {
-        const response = await fetch("/clock-in", {
+        
+        const response = await fetch("/attendance/clock-in", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ userId: userIdInput.value.trim() }) // Send the user ID for clock-in
+            body: JSON.stringify({})  
         });
         if (!response.ok) {
             throw new Error("Failed to clock in");
         }
-        alert("Clock-in successful");
+        console.log("Clock-in successful");
     } catch (error) {
         console.error("Error:", error.message);
-        alert("Failed to clock in. Please try again.");
     }
 });
 
-clockOutBtn.addEventListener("click", async () => {
+//clockout button
+document.getElementById("clock-out-button").addEventListener("click", async () => {
     try {
-        const response = await fetch("/clock-out", {
+        
+        const response = await fetch("/attendance/clock-out", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ userId: userIdInput.value.trim() }) // Send the user ID for clock-out
+            body: JSON.stringify({})  
         });
         if (!response.ok) {
             throw new Error("Failed to clock out");
         }
-        alert("Clock-out successful");
+        console.log("Clock-out successful");
     } catch (error) {
         console.error("Error:", error.message);
-        alert("Failed to clock out. Please try again.");
     }
 });
-
-});
-
-
 //fetch clock-in data from databse
 fetch("/attendance")
-  .then(response => response.json())
-  .then(data => {
-    const tableBody = document.querySelector(".time-sheet table tbody");
-
-    data.forEach(entry => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${entry.date}</td>
-        <td>${entry.clock_in}</td>
-        <td>${entry.clock_out}</td>
-        <td><button class="apply-correction-btn">Apply</button></td>
-      `;
-      tableBody.appendChild(row);
-
-      const applyCorrectionButton = row.querySelector(".apply-correction-btn");
-      const correctionPopup = document.getElementById("correction-popup");
-
-      applyCorrectionButton.addEventListener("click", function() {
-        const date = entry.date;
-        document.getElementById("date").value = date;
-        correctionPopup.style.display = "block";
-      });
-    });
-  })
-  .catch(error => console.error("Error fetching attendance data:", error));
-
-document.getElementById("close-correction").addEventListener("click", function() {
-  document.getElementById("correction-popup").style.display = "none";
-});
-
-document.getElementById("cancel-correction").addEventListener("click", function() {
-  document.getElementById("correction-popup").style.display = "none";
-});
-
-document.getElementById("correction-form").addEventListener("submit", function(event) {
-  event.preventDefault();
-  const employeeName = document.getElementById("employee-name").value;
-  const date = document.getElementById("date").value;
-  const reason = document.getElementById("reason").value;
-
-  document.getElementById("correction-popup").style.display = "none";
-});
-
-
-      </script>
+    .then(response => response.json())
+    .then(data => {
       
+        const tableBody = document.querySelector(".time-sheet table tbody");
+        data.forEach(entry => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${entry.date}</td>
+                <td>${entry.clock_in}</td>
+                <td>${entry.clock_out}</td>
+                <td><button class="apply-correction-btn">Apply</button></td>
+            `;
+            tableBody.appendChild(row);
+        });
+    })
+    .catch(error => console.error("Error fetching attendance data:", error));
+
+    //fetch clock-out data from database
+    // fetch("/attendance")
+    // .then(response => response.json())
+    // .then(data => {
+      
+    //     const tableBody = document.querySelector(".time-sheet table tbody");
+    //     data.forEach(entry => {
+    //         const row = document.createElement("tr");
+    //         row.innerHTML = `
+    //             <td>${entry.date}</td>
+    //             <td>${entry.clock_in}</td>
+    //             <td>${entry.clock_out}</td>
+    //             <td><button class="apply-correction-btn">Apply</button></td>
+    //         `;
+    //         tableBody.appendChild(row);
+    //     });
+    // })
+    // .catch(error => console.error("Error fetching attendance data:", error));
+      </script>
 </body>
 </html>
