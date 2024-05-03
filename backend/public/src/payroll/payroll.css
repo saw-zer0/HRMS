@@ -1,86 +1,4 @@
-<<<<<<<< HEAD:src/components/Profile.svelte
-<script>
-        // import { App.svelte } from 'svelte-routing';
-        import App from './App.svelte';
-
-
-      const name = "Batman";
-      const post = "Sales Manager";
-      const address = "Naxal, Kathmandu";
-      const joined = "Employee Since September, 2020";
-</script>
-
-
-<main>
-  <div class="wrapper">
-    <div class="sidebar">
-        <h2><img src="image/LOGO.png">Logo</h2>
-        <ul>
-          <li class="home"><Link to="/home">Home</Link></li>
-        <li class="profile"><Link to="/">Profile</Link></li>
-        <li class="attendance"><Link to="/attendance">Attendance</Link></li>
-        <li class="leave"><Link to="/leave">Leave</Link></li>
-        <li class="payroll"><Link to="/payroll">Payroll</Link></li>
-          </ul>
-        <div class="social_media">
-        </div>
-    </div>
-    <div class="main_content">
-        <div class="header">
-            <div class="notification">
-                <i class="fas fa-bell"></i>
-            </div>
-            <button class="log-out">Logout</button>
-        </div>
-        <div class="info">
-            <div class="profile-heading"><h2>My Profile</h2></div>
-            <div class="profile-info"> 
-                <div class="profile-img"><h3><img src="image/profile.png" alt="Profile Picture"></h3></div>
-                <div class="name-add-emp" style="margin: 10px;">
-                    <h3>{name}</h3>
-                    <p class="employee-post">{post}</p>
-                    <p class="employee-address">{address}</p>
-                    <p class="employee-joined">{joined}</p>
-                </div>   
-            </div>
-            <div class="gap"></div>
-            <div class="personal-details">
-                <div class="left-details">
-                    <div class="highlight-personal-details">
-                        <span class="span-highlight">Personal Details</span>
-                        <i class="fas fa-edit edit-icon"></i>
-                    </div>
-                    <p><strong>Nationality :</strong> Nepali</p>
-                    <p><strong>Gender :</strong> Male</p>
-                    <p><strong>Marital Status :</strong> Single</p>
-                    <p><strong>DOB :</strong> January 1, 1990</p>
-                    <p><strong>Contact :</strong> 123-456-7890</p>
-                </div>
-                <div class="line"></div> 
-                <div class="right-details">
-                    <div class="highlight-employee-details">
-                        <span class="span-highlight">Employee Details</span>
-                    </div>
-                    <p><strong>Employee ID :</strong> 123456</p>
-                    <p><strong>Joined Date :</strong> September 1, 2020</p>
-                    <p><strong>Company Email :</strong> employee@example.com</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-</main>
-
-<style>
-    /* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-========
-/* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600&display=swap');
-
->>>>>>>> main:backend/public/src/profile/profile.css
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -355,8 +273,6 @@ body{
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-<<<<<<<< HEAD:src/components/Profile.svelte
-========
 .profile-button i {
   margin-right: 10px;
 }
@@ -365,14 +281,14 @@ body{
   background-color: #ccc;
   color: #fff;
   border-color: #999;
-}
+} 
 
-.wrapper .sidebar ul li.profile{
+.wrapper .sidebar ul li.payroll{
   background-color: #586C75;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-}
+} 
 
-.notify-btn {
+ .notify-btn {
   background-color: #ffffff;
   border: none;
   border-radius: 100%; 
@@ -382,13 +298,178 @@ body{
   cursor: pointer;
   outline: none;
   transition: background-color 0.3s, transform 0.3s;
-}
+} 
 
-.notify-btn:hover {
+ .notify-btn:hover {
   background-color: #999; 
+} 
+
+ .notify-btn i {
+  color: #333;  
+ }
+ .box-container{
+  display: flex;
+  justify-content: space-between;
+ }
+ .salary-details-box{
+  background-color: #92c0bd;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  width: 450px;
+  height: 300px;
+
 }
 
-.notify-btn i {
-  color: #333; 
+.salary-details-box h3 {
+  margin-bottom: 10px;
+  color: #333;
 }
->>>>>>>> main:backend/public/src/profile/profile.css
+
+.salary-details-box .details {
+  display: flex;
+  flex-direction: column;
+}
+
+.salary-details-box .detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.salary-details-box .detail-item span:first-child {
+  font-weight:300;
+}
+
+
+.pay-period-box {
+  background-color: #f9deb6;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  width: 350px;
+  height: 250px;
+  
+}
+
+.pay-period-box h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.pay-period-box .pay-period-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.pay-period-box .detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.pay-period-box .detail-item span:first-child {
+  font-weight: 300;
+}
+
+.payroll-history-box {
+  background-color: #92c0bd;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  width: 700px;
+  height: 300px;
+}
+
+.payroll-history-box h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.payroll-history-box .payroll-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.payroll-history-box .payroll-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.payroll-history-box .payroll-item .value {
+  margin-left: 10px;
+}
+.payroll-history-box .payroll-item span:first-child {
+  font-weight: 300;
+}
+
+.popup {
+  display: none; 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #D9D9D9;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border-radius: 30px;
+  z-index: 999;
+  width: 400px;
+  height: 500px;
+}
+
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #ccc;
+  text-decoration: none;
+  cursor: pointer;
+}
+.popup-content {
+  color: black;
+  display: flex;
+  flex-direction: column;
+   align-items: center;
+  
+}
+.popup-content p{
+  font-size: 20px;
+  margin: 10px 0;
+}
+.name{
+  font-weight: bold;
+}
+
+.image-container {
+  margin-bottom: 20px;
+}
+
+.popup-image {
+  max-width: 100%;
+  max-height: 100px; 
+}
+.popup-content .edit-profile a {
+  text-decoration: none;
+  color: black; /* Change the color as needed */
+}
+.popup-content .edit-profile a:hover {
+  text-decoration: underline;
+  color: darkblue; /* Change the color as needed */
+}
