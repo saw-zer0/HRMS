@@ -659,14 +659,147 @@ input[type="submit"]:hover {
 
 /* Media query for smaller screens */
 @media (max-width: 768px) {
+  .main_content {
+    margin-left: 0; /* Remove left margin for main content */
+  }
+
   .sidebar {
-    width: 1000px; 
+    width: 100px; 
+    padding: 15px;
+  }
+  .attendance-header {
+    flex-direction: column; /* Stack elements vertically on smaller screens */
+  }
+
+  .attendance-record {
+    margin-left: 0; /* Remove left margin for attendance record */
+    margin-top: 20px; /* Adjust the top margin */
+  }
+
+  .clock-buttons {
+    margin-top: 0; /* Remove top margin for clock buttons */
+    margin-bottom: 20px; /* Add bottom margin for spacing */
+    margin-left: 20px; /* Add left margin for spacing */
+  }
+
+  .clock-buttons button {
+    display: inline-block; /* Set buttons to inline-block */
+    width: auto; /* Set button width to auto */
+    margin: 5px; /* Adjust margin between buttons */
+    padding: 10px 20px; /* Adjust padding for buttons */
   }
 }
 
 /* Media query for even smaller screens */
 @media (max-width: 600px) {
   .sidebar {
-    width: 80px; 
+    padding: 10px;
   }
+}
+
+/* #logoutPopup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+
+#logoutPopup button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#logoutPopup button#confirmLogout {
+  background-color: #e74c3c;
+  color: #fff;
+  margin-left: 3px;
+}
+
+#logoutPopup button#cancelLogout {
+  background-color: #ccc;
+  color: #333;
+  margin-right: 10px;
+}
+
+#logoutPopup .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #333;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#logoutPopup .close:hover {
+  color: #555;
+} */
+
+.popup-logout {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fefefe;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  z-index: 9999;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* .button-container {
+  display: flex;
+  justify-content: center;
+} */
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 120px;
+  margin: 5px; /* Add margin to create space between buttons */
+}
+
+#confirmLogout {
+  background-color: #007bff;
+  color: #fff;
+}
+
+#cancelLogout {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column; /* Align items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.button-group {
+  display: flex; /* Display buttons side by side */
 }

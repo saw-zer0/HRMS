@@ -57,6 +57,19 @@
         </span>
       </div>
       <button class="log-out">Logout</button>
+      <div id="logoutPopup" class="popup-logout">
+        <div class="popup-content">
+          <span class="close" id="closeLogout">&times;</span>
+          <div class="btn-container">
+            <h3>Are you sure you want to logout?</h3>
+            <div class="button-group">
+              <button id="confirmLogout"> Yes, Logout</button>
+            <button id="cancelLogout" >Cancel</button> 
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </div>
 
     <div class="attendance-content">
@@ -291,6 +304,45 @@ window.addEventListener('click', function(event) {
     //     });
     // })
     // .catch(error => console.error("Error fetching attendance data:", error));
+
+    //Logout functions
+   // Get the logout button
+var logoutBtn = document.querySelector(".log-out");
+
+// Get the popup
+var popup = document.getElementById("logoutPopup");
+
+// Get the close button
+var closeBtn = document.getElementById("closeLogout");
+
+// When the user clicks the logout button, show the popup
+logoutBtn.onclick = function() {
+  popup.style.display = "block";
+}
+
+// When the user clicks on the close button, hide the popup
+closeBtn.onclick = function() {
+  popup.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the popup, hide the popup
+window.onclick = function(event) {
+  if (event.target == popup) {
+    popup.style.display = "none";
+  }
+}
+
+// When the user clicks the "Yes, Logout" button, perform logout
+document.getElementById("confirmLogout").onclick = function() {
+  // Perform logout action here
+  alert("Logged out successfully!");
+}
+
+// When the user clicks the "Cancel" button, hide the popup
+document.getElementById("cancelLogout").onclick = function() {
+  popup.style.display = "none";
+}
+
       </script>
 </body>
 </html>
