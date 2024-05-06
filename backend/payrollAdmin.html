@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payroll</title>
-    <link rel="stylesheet" href="payroll.css">
+    <link rel="stylesheet" href="payrollAdmin.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
 <body>
@@ -50,69 +50,59 @@
       <button class="log-out">Logout</button>
       
     </div>
-    <div class="info">
-      <div class="box-container">
-      <div class="salary-details-box">
-        <h3>Salary Details</h3>
-        <div class="details">
-          <div class="detail-item">
-            <span>Basic Salary:</span>
-            <span>$XXXX</span>
-          </div>
-          <div class="detail-item">
-            <span>Overtime Paid:</span>
-            <span>$XXXX</span>
-          </div>
-          <div class="detail-item">
-            <span>Unpaid Leave:</span>
-            <span>X days</span>
-          </div>
-          <div class="detail-item">
-            <span>Late Arrival:</span>
-            <span>X minutes</span>
-          </div>
+    <div class="info-container">
+    <div class="info-box" id="info">
+        <h3 class="profile-heading">Generate Slip</h3>
+        <div class="info">
+        
+          <button class="action-button">Generate</button>
         </div>
       </div>
-      <div class="pay-period-box">
-        <h3>Pay Period</h3>
-        <div class="pay-period-details">
-          <div class="detail-item">
-            <span>Start:</span>
-            <span>MM/DD/YYYY</span>
-          </div>
-          <div class="detail-item">
-            <span>End:</span>
-            <span>MM/DD/YYYY</span>
-          </div>
-          <div class="detail-item">
-            <span>Payday:</span>
-            <span>MM/DD/YYYY</span>
-          
-            </div>
-          </div>
+      <div class="info-box">
+        <h3 class="profile-heading">Employee Benefits</h3>
+        <div class="info">
+     
+          <button class="action-button">View</button>
         </div>
       </div>
-      <div class="payroll-history-box">
-        <h3>Payroll History</h3>
-        <div class="payroll-details">
-          <div class="payroll-item">
-            <span>Salary:</span>
-            <span class="value">$XXXXX</span>
-          </div>
-          <div class="payroll-item">
-            <span>Bonus:</span>
-            <span class="value">$XXXXX</span>
-          </div>
-          <div class="payroll-item">
-            <span>Deduction:</span>
-            <span class="value">-$XXXXX</span>
-          </div>
-          <div class="payroll-item">
-            <span>Net Pay:</span>
-            <span class="value">$XXXXX</span>
-          </div>
-        </div>
+    </div>
+    </div>
+    </div>
+    <div class="payroll-table">
+        <h2>Employee Payroll</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Employee Name</th>
+              <th>Pay Date</th>
+              <th>Basic Pay</th>
+              <th>Deduction</th>
+              <th>Allowance</th>
+              <th>Net Pay</th>
+              <th>Mode of Payment</th>
+              <th>Edit/Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example row of data -->
+            <tr>
+              <td>Anup Thapa</td>
+              <td>2024-05-31</td>
+              <td>5000</td>
+              <td>200</td>
+              <td>300</td>
+              <td>4500</td>
+              <td>Direct Deposit</td>
+              <td>
+                <button>Edit</button>
+                <button>Delete</button>
+              </td>
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
       </div>
+    
       <script>
         
         document.addEventListener("DOMContentLoaded", function() {
