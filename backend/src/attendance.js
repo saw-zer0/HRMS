@@ -17,6 +17,7 @@ router.post("/clock-in", async (req, res) => {
         await client.query(query, values);
 
         console.log("Clock-in time inserted successfully for date:", formattedDate);
+
         res.status(200).json({ date: formattedDate, time: formattedTime }); // Send formatted date and time in the API response
     } catch (error) {
         console.error("Error inserting clock-in time:", error);
@@ -55,5 +56,7 @@ router.get("/", async (req, res) => {
         res.sendStatus(500);
     }
 });
+
+
 
 module.exports = router;

@@ -14,7 +14,7 @@
 
     <body>
         <div class="logo-container">
-            <img src="/logo.png" alt="logo" />
+            <img src="/LOGO.png" alt="logo" />
         </div>
         <div class="container">
             <div class="image-container"></div>
@@ -81,7 +81,8 @@
                     console.log(data)
                     // if response is successful, store the token in local storage and redirect to home page
                     if (response.ok) {
-                        localStorage.setItem("jwt", data.accessToken)
+                        // localStorage.setItem("jwt", data.accessToken)
+                        document.cookie = `jwt=${data.accessToken}`
                         window.location.href = "/"
                     } else {
                         alert(data.message)

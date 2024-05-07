@@ -23,3 +23,15 @@ const isAuthenticated = () => {
 
         return header;
     }
+
+    const logout = () => {
+        if (typeof window !== "undefined") {
+            document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+    }
+
+    module.exports = {
+        isAuthenticated,
+        getHeaders,
+        logout
+    }

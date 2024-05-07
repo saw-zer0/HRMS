@@ -5,6 +5,9 @@ const server = express();
 
 const apiRouter = require("./routes");
 const pageRouter = require("./pages/routes");
+const cookieParser = require("cookie-parser");
+
+const job = require("./utils/scheduleMail");
 
 const staticPath = path.join(__dirname, "../public");
 const srcPath = path.join(__dirname, "../public/src");
@@ -12,6 +15,8 @@ server.use(express.static(staticPath));
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
+
+server.use(cookieParser());
 
 server.use("/", pageRouter);
 server.use("/api", apiRouter);

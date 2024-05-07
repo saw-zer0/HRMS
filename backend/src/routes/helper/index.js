@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const client = require("../../database");
-const authenticateToken = require("./auth");
+const {authenticateToken} = require("./auth");
 
 const refreshTokens = [];
 
@@ -20,36 +20,35 @@ router.post('/token', (req, res) => {
     })
   })
   
-  router.delete('/logout', (req, res) => {
-    refreshTokens = refreshTokens.filter(token => token !== req.body.token)
-    res.sendStatus(204)
-  })
-  
-  router.post('/login', async(req, res) => {
-    // Authenticate User
-    const email = req.body.email;
-    const password = req.body.password;
-    // Get user with given email from database
-    const result = await client.query('SELECT * FROM users WHERE email = $1', [email]);
-    const user = result.rows[0];
-    if (!user) {
-      return res.sendStatus(404);
-    }
-    // Verify password using bcrypt
-    const validPassword = await bcrypt.compare(password, user.password);
-    console.log(validPassword);
-    if (!validPassword) {
-        return res.sendStatus(401);
-    }
-    const accessToken = generateAccessToken(user)
-    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
-    refreshTokens.push(refreshToken)
-    res.json({ accessToken: accessToken, refreshToken: refreshToken })
-  })
-  
-  function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '24h' })
+router.delete('/logout', (req, res) => {
+  refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+  res.sendStatus(204)
+})
+
+router.post('/login', async(req, res) => {
+  // Authenticate User
+  const email = req.body.email;
+  const password = req.body.password;
+  // Get user with given email from database
+  const result = await client.query('SELECT * FROM users WHERE email = $1', [email]);
+  const user = result.rows[0];
+  if (!user) {
+    return res.sendStatus(404);
   }
+  // Verify password using bcrypt
+  const validPassword = await bcrypt.compare(password, user.password);
+  if (!validPassword) {
+      return res.sendStatus(401);
+  }
+  const accessToken = generateAccessToken(user)
+  const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+  refreshTokens.push(refreshToken)
+  res.json({ accessToken: accessToken, refreshToken: refreshToken })
+})
+
+function generateAccessToken(user) {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '24h' })
+}
 
 router.put("/change_password",authenticateToken, async (req, res) => {
     try {

@@ -12,17 +12,18 @@
         />
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="../../src/script.js"></script>
     </head>
     <body>
         <div class="wrapper">
             <div class="sidebar">
-                <h2><img src="image/LOGO.png" class="logo" /></h2>
+                <h2><img src="/LOGO.png" class="logo" /></h2>
                 <ul>
                     <li class="home">
                         <a
                             href="#"
                             class="nav-item"
-                            onclick="navigateToPage('home')"
+                            onclick="navigateToPage('./')"
                             >Home</a
                         >
                     </li>
@@ -34,11 +35,11 @@
                             >Profile</a
                         >
                     </li>
-                    <li class="attendence">
+                    <li class="attendance">
                         <a
                             href="#"
                             class="nav-item"
-                            onclick="navigateToPage('attendence')"
+                            onclick="navigateToPage('attendance')"
                             >Attendance</a
                         >
                     </li>
@@ -73,10 +74,10 @@
                             <i class="fas fa-user"></i><span>AnupThapa</span>
                         </button>
                     </div>
-                    <button class="log-out">Logout</button>
+                    <button class="log-out" onclick="logout()">Logout</button>
                 </div>
                 <div class="leave-info">
-                    <button class="leave-button" onclick="openModal()">
+                    <button class="leave-button" onclick="openNewLeaveModal()">
                         Apply for leave
                     </button>
                     <div id="myModal" class="modal">
@@ -87,18 +88,6 @@
                             >
                             <h2>Request for Leave</h2>
                             <form id="leaveForm">
-                                <div class="form-group">
-                                    <label for="employeeName"
-                                        >Employee Name:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        id="employeeName"
-                                        name="employeeName"
-                                        required
-                                    />
-                                </div>
-
                                 <div class="form-group">
                                     <label for="leaveType">Leave Type:</label>
                                     <select
@@ -187,89 +176,14 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Annual Leave</td>
-                                <td>2024-04-01</td>
-                                <td>2024-04-05</td>
-                                <td>Approved</td>
-                                <td>
-                                    <button>Edit</button>
-                                    <button>Delete</button>
-                                </td>
-                            </tr>
-                            <!-- <tr>
-                        <td>Annual Leave</td>
-                        <td>2024-04-01</td>
-                        <td>2024-04-05</td>
-                        <td>Approved</td>
-                        <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Annual Leave</td>
-                        <td>2024-04-01</td>
-                        <td>2024-04-05</td>
-                        <td>Approved</td>
-                        <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Annual Leave</td>
-                        <td>2024-04-01</td>
-                        <td>2024-04-05</td>
-                        <td>Approved</td>
-                        <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Annual Leave</td>
-                        <td>2024-04-01</td>
-                        <td>2024-04-05</td>
-                        <td>Approved</td>
-                        <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Annual Leave</td>
-                        <td>2024-04-01</td>
-                        <td>2024-04-05</td>
-                        <td>Approved</td>
-                        <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr> -->
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
         <script>
-            var dataArray = [
-                {
-                    leaveType: "Sick",
-                    startDate: "2024-04-01",
-                    endDate: "2024-04-05",
-                    status: "Approved",
-                },
-
-                {
-                    leaveType: "Casual",
-                    startDate: "2024-04-01",
-                    endDate: "2024-04-05",
-                    status: "Approved",
-                },
-            ]
+            let leaveId = null
             function appendHtml(el, str) {
                 var div = document.createElement("div")
                 div.innerHTML = str
@@ -277,30 +191,6 @@
                     el.appendChild(div.children[0])
                 }
             }
-            function addRows() {
-                var table = document.getElementById("myTable")
-                var tbody = table.getElementsByTagName("tbody")[0]
-
-                for (var i = 0; i < dataArray.length; i++) {
-                    var row = document.createElement("tr")
-
-                    for (var key in dataArray[i]) {
-                        var cell = document.createElement("td")
-                        cell.appendChild(
-                            document.createTextNode(dataArray[i][key])
-                        )
-                        row.appendChild(cell)
-                    }
-                    var actionCell = document.createElement("td")
-                    appendHtml(
-                        actionCell,
-                        "<button>Edit</button><button>Delete</button>"
-                    )
-                    row.appendChild(actionCell)
-                    tbody.appendChild(row)
-                }
-            }
-            addRows()
 
             function navigateToPage(page) {
                 window.location.href = page
@@ -323,14 +213,179 @@
                     modal.style.display = "none"
                 }
             }
+            function openNewLeaveModal() {
+                document.getElementById("leaveForm").reset()
+                document.querySelector(".submit-btn").textContent = "Submit"
+                openModal()
+            }
+            async function editLeave(id) {
+                // Fetch single leave data from backend
+                var response = await fetch("/api/leaves/" + id)
+                var leave = await response.json()
+                console.log(leave)
+                // Fill the form with leave data
+                document.getElementById("leaveType").value = leave.type
+                const startDate = new Date(leave.start_date)
 
-            document
-                .getElementById("leaveForm")
-                .addEventListener("submit", function (event) {
-                    event.preventDefault()
-                    alert("Leave request submitted successfully!")
-                    closeModal()
-                })
+                let startDateString =
+                    startDate.getFullYear().toString().padStart(4, "0") +
+                    "-" +
+                    (startDate.getMonth() + 1).toString().padStart(2, "0") +
+                    "-" +
+                    startDate.getDate().toString().padStart(2, "0")
+                document.getElementById("startDate").value = startDateString
+
+                const endDate = new Date(leave.end_date)
+
+                let endDateString =
+                    endDate.getFullYear().toString().padStart(4, "0") +
+                    "-" +
+                    (endDate.getMonth() + 1).toString().padStart(2, "0") +
+                    "-" +
+                    endDate.getDate().toString().padStart(2, "0")
+                document.getElementById("endDate").value = endDateString
+
+                console.log(new Date(leave.end_date).toLocaleString())
+
+                document.getElementById("leaveReason").value = leave.reason
+                //replace submit text with update
+                document.querySelector(".submit-btn").textContent = "Update"
+                leaveId = id
+                // Open the modal
+                openModal()
+            }
+
+            function deleteLeave(id) {
+                if (confirm("Are you sure you want to delete this leave?")) {
+                    fetch("/api/leaves/" + id, {
+                        method: "DELETE",
+                    })
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error("Failed to delete leave")
+                            }
+                            alert("Leave deleted successfully!")
+                            getAllLeaves()
+                        })
+                        .catch((error) => {
+                            console.error(error)
+                        })
+                }
+            }
+            // Function to get all leaves from backend and display it in leaves table
+            async function getAllLeaves() {
+                try {
+                    // Fetch leaves data from backend
+                    var response = await fetch("/api/leaves/user_leaves")
+                    var leaves = await response.json()
+
+                    // Get the table body element
+                    var tbody = document
+                        .getElementById("myTable")
+                        .getElementsByTagName("tbody")[0]
+
+                    // Clear existing rows
+                    tbody.innerHTML = ""
+
+                    // Loop through the leaves data and create table rows
+                    leaves.forEach(function (leave) {
+                        var row = document.createElement("tr")
+
+                        // Create table cells for each leave property
+                        var leaveTypeCell = document.createElement("td")
+                        leaveTypeCell.textContent = leave.type
+                        row.appendChild(leaveTypeCell)
+
+                        var startDateCell = document.createElement("td")
+                        startDateCell.textContent = leave.start_date
+
+                        row.appendChild(startDateCell)
+
+                        var endDateCell = document.createElement("td")
+                        endDateCell.textContent = leave.end_date
+
+                        row.appendChild(endDateCell)
+
+                        var statusCell = document.createElement("td")
+                        statusCell.textContent = leave.status
+                        row.appendChild(statusCell)
+
+                        var actionCell = document.createElement("td")
+                        appendHtml(
+                            actionCell,
+                            `<button data-leaveid="${leave.leave_id}" onclick="editLeave(this.dataset.leaveid)">Edit</button><button  data-leaveid="${leave.leave_id}" onclick="deleteLeave(this.dataset.leaveid)">Delete</button>`
+                        )
+                        row.appendChild(actionCell)
+
+                        // Append the row to the table body
+                        tbody.appendChild(row)
+                    })
+                } catch (error) {
+                    console.error("Failed to fetch leaves data:", error)
+                }
+            }
+
+            // Call the function to get and display leaves on page load
+            getAllLeaves()
+
+            var leaveForm = document.getElementById("leaveForm")
+            leaveForm.addEventListener("submit", async function (event) {
+                event.preventDefault()
+                console.log(event)
+                // Get form data
+                var leaveType = document.getElementById("leaveType").value
+                var startDate = document.getElementById("startDate").value
+                var endDate = document.getElementById("endDate").value
+                var leaveReason = document.getElementById("leaveReason").value
+
+                // Create a data object to send to backend
+                var data = {
+                    type: leaveType,
+                    start_date: startDate,
+                    end_date: endDate,
+                    reason: leaveReason,
+                }
+
+                try {
+                    // Send data to backend using fetch or XMLHttpRequest
+                    // Example using fetch:
+                    if (
+                        document.querySelector(".submit-btn").textContent ===
+                        "Update"
+                    ) {
+                        var response = await fetch("/api/leaves/" + leaveId, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(data),
+                        })
+                    } else {
+                        var response = await fetch("/api/leaves", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(data),
+                        })
+                    }
+
+                    if (response.ok) {
+                        alert("Leave request submitted successfully!")
+                        closeModal()
+                        getAllLeaves()
+                    } else {
+                        alert(
+                            "Failed to submit leave request. Please try again."
+                        )
+                    }
+                } catch (error) {
+                    alert(
+                        "An error occurred while submitting leave request. Please try again."
+                    )
+                    console.error(error)
+                }
+            })
         </script>
     </body>
 </html>

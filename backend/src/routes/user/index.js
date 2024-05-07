@@ -18,14 +18,15 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/profile", async (req, res) => {
+    const user = req.user;
     try {
         const query = "SELECT * FROM users WHERE user_id = $1";
-        const values = [req.params.id];
+        const values = [user.user_id];
         const result = await client.query(query, values);
-        const user = result.rows[0];
+        const profile = result.rows[0];
 
-        res.json(user);
+        res.json(profile);
     } catch (error) {
         console.error("Error fetching user:", error);
         res.sendStatus(500);
@@ -39,11 +40,10 @@ router.post("/", async (req, res) => {
         const query = "INSERT INTO users (full_name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *";
         const values = [name, email, hashedPassword, role];
         const result = await client.query(query, values);
-        console.log(result)
         const newUser = result.rows[0];
 
         // Send email to user notifying them of their account creation with nodemailer
-        sendMail();
+        sendMail(newUser.email, "Account Created", "Your account has been created successfully!", "<b>password: password123</b>");
 
         // Send the newly created user back in the response
         res.json(newUser);
