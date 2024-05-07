@@ -7,6 +7,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="home.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    
 </head>
 <body>
 
@@ -26,13 +27,33 @@
   </div>
   <div class="main_content">
     <div class="header">
-        <div class="notification">
-          <button class="notify-btn"><i class="fas fa-bell"></i></button>
-            </div>
+      <div class="notification">
+        <button class="notify-btn"><i class="fas fa-bell"></i></button>
+        <div class="dropdown-content" id="dropdownContent">
+          <!-- Dummy notifications -->
+          <a href="#">New leave request from John Doe</a>
+          <a href="#">Reminder: Performance review due for Jane Smith</a>
+          <a href="#">Upcoming birthday: Happy Birthday to Sarah Johnson!</a>
+        </div>
+      </div>
             <div class="profile">
               <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
             </div>
-        <button class="log-out" onclick="confirmLogout()">Logout</button>
+
+
+            <button class="log-out">Logout</button>
+            <div id="logoutPopup" class="popup-logout">
+              <div class="popup-content">
+                <span class="close" id="closeLogout">&times;</span>
+                <div class="btn-container">
+                  <h3>Are you sure you want to logout?</h3>
+                  <div class="button-group">
+                    <button id="confirmLogout"> Yes, Logout</button>
+                  <button id="cancelLogout" >Cancel</button> 
+                  </div>
+                </div>
+              </div>
+            </div>
         
     </div>
     <div class="info">
@@ -106,7 +127,7 @@
       <ul class="task-list">
         <p>Completion of survey and preparing the presentation</p>
         <p>Market research at ABC town by the end of August</p>
-        <p>Documenting the proposal for the upcoming event in XYZ</p>
+        <p>Documenting the proposal for the upcoming event in XYZ</p><br><br>
       </ul>
     </div>
 
@@ -117,15 +138,80 @@
 </div>
 
 <script>
+  // Get the bell button and dropdown content
+var bellButton = document.querySelector('.notify-btn');
+var dropdownContent = document.getElementById('dropdownContent');
+
+// Toggle dropdown visibility on bell button click
+bellButton.addEventListener('click', function(event) {
+  // Prevent default action of button click
+  event.preventDefault();
+  
+  // Toggle the visibility of the dropdown content
+  dropdownContent.classList.toggle('show');
+  
+  // Get the position of the bell button
+  var buttonRect = bellButton.getBoundingClientRect();
+  
+  // Set the position of the dropdown content relative to the bell button
+  dropdownContent.style.top = (buttonRect.bottom + window.pageYOffset) + 'px';
+  dropdownContent.style.left = buttonRect.left + 'px';
+});
+
+// Close the dropdown if the user clicks outside of it
+window.addEventListener('click', function(event) {
+  if (!event.target.matches('.notify-btn')) {
+    dropdownContent.classList.remove('show');
+  }
+});
+
+ //Logout functions
+   // Get the logout button
+   var logoutBtn = document.querySelector(".log-out");
+
+   // Get the popup
+   var popup = document.getElementById("logoutPopup");
+   
+   // Get the close button
+   var closeBtn = document.getElementById("closeLogout");
+   
+   // When the user clicks the logout button, show the popup
+   logoutBtn.onclick = function() {
+     popup.style.display = "block";
+   }
+   
+   // When the user clicks on the close button, hide the popup
+   closeBtn.onclick = function() {
+     popup.style.display = "none";
+   }
+   
+   // When the user clicks anywhere outside of the popup, hide the popup
+   window.onclick = function(event) {
+     if (event.target == popup) {
+       popup.style.display = "none";
+     }
+   }
+   
+   // When the user clicks the "Yes, Logout" button, perform logout
+   document.getElementById("confirmLogout").onclick = function() {
+     // Perform logout action here
+     alert("Logged out successfully!");
+   }
+   
+   // When the user clicks the "Cancel" button, hide the popup
+   document.getElementById("cancelLogout").onclick = function() {
+     popup.style.display = "none";
+   }
+
   function navigateToPage(page) {
     window.location.href = page;
   }
 
-  function confirmLogout() {
-    if (confirm("Are you sure you want to logout?")) {
-      window.location.href = "logout.html";
-    }
-  }
+  //function confirmLogout() {
+    //if (confirm("Are you sure you want to logout?")) {
+      //window.location.href = "logout.html";
+    //}
+  //}
 </script>
 
 </body>

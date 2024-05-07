@@ -7,6 +7,7 @@
     <title>Admin_Home</title>
     <link rel="stylesheet" href="admin_home.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
@@ -26,13 +27,29 @@
   </div>
   <div class="main_content">
     <div class="header">
+
         <div class="notification">
           <button class="notify-btn"><i class="fas fa-bell"></i></button>
             </div>
+
+
             <div class="profile">
               <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
             </div>
-        <button class="log-out" onclick="confirmLogout()">Logout</button>
+        <!-- <button class="log-out" onclick="confirmLogout()">Logout</button> -->
+        <button class="log-out">Logout</button>
+      <div id="logoutPopup" class="popup-logout">
+        <div class="popup-content">
+          <span class="close" id="closeLogout">&times;</span>
+          <div class="btn-container">
+            <h3>Are you sure you want to logout?</h3>
+            <div class="button-group">
+              <button id="confirmLogout"> Yes, Logout</button>
+            <button id="cancelLogout" >Cancel</button> 
+            </div>
+          </div>
+        </div>
+      </div>
        
     </div>
 
