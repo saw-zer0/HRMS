@@ -13,5 +13,8 @@ router.get("/attendance", (req, res) => {
 router.get("/leave", (req, res) => {
     res.sendFile(path.join(srcPath, "admin/admin_leave.html"));
 })
+router.get("/payroll", (req, res) => {
+    res.sendFile(path.join(srcPath, "admin/admin_payroll.html"));
+})
 
 module.exports = router;

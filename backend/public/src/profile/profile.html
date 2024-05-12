@@ -6,18 +6,21 @@
     <title>Profile</title>
     <link rel="stylesheet" href="src/profile/profile.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="../../src/script.js"></script>
+
 </head>
 <body>
 
 <div class="wrapper">
   <div class="sidebar">
-    <h2><img src="image/LOGO.png" class="logo"></h2>
+    <h2><img src="/LOGO.png" class="logo"></h2>
     <ul>
-      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('home')">Home</a></li>
-      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('profile')">Profile</a></li>
-      <li class="attendence"><a href="#" class="nav-item" onclick="navigateToPage('attendence')">Attendance</a></li>
-      <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('leave')">Leave</a></li>
-      <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('payroll')">Payroll</a></li>
+      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('./')">Home</a></li>
+      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('./profile')">Profile</a></li>
+      <li class="attendance"><a href="#" class="nav-item" onclick="navigateToPage('./attendance')">Attendance</a></li>
+      <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('./leave')">Leave</a></li>
+      <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('./payroll')">Payroll</a></li>
     </ul>
     <div class="social_media">
     </div>
@@ -30,7 +33,7 @@
             <div class="profile">
               <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
             </div>
-        <button class="log-out" onclick="">Logout</button>
+        <button class="log-out" onclick="logout()">Logout</button>
         
     </div>
     <div class="info">
@@ -40,7 +43,7 @@
 
         <div class="name-add-emp" style="margin: 10px;">
           <h3>Anup Thapa</h3>
-            <p class="employee-post">Sales Manager</p>
+            <p class="employee-post"></p>
             <p class="employee-address">Naxal, Kathmandu</p>
             <p class="employee-joined">Employee Since September, 2020</p>
           </div>   
@@ -54,10 +57,10 @@
                 <i class="fas fa-edit edit-icon"></i>
             </div>
           <p><strong>Nationality :</strong> Nepali</p>
-          <p><strong>Gender :</strong> Male</p>
-          <p><strong>Marital Status :</strong> Single</p>
-          <p><strong>DOB :</strong> January 1, 1990</p>
-          <p><strong>Contact :</strong> 123-456-7890</p>
+          <p><strong>Gender :</strong> <span id="gender">Male</span></p>
+          <p><strong>Marital Status :</strong> <span id="marital_status"></span>Single</p>
+          <p><strong>DOB :</strong> <span id="DOB"></span>January 1, 1990</p>
+          <p><strong>Contact :</strong> <span id="phone"></span></p>
         </div>
         <div class="line"></div> 
         <div class="right-details">
@@ -65,9 +68,9 @@
                 <span class="span-highlight">Employee Details</span>
                 <!-- <i class="fas fa-edit edit-icon"></i> -->
             </div>
-          <p><strong>Employee ID :</strong> 123456</p>
-          <p><strong>Joined Date :</strong> September 1, 2020</p>
-          <p><strong>Company Email :</strong> employee@example.com</p>
+          <p><strong>Employee ID :</strong> <span id="user_id"></span></p>
+          <p><strong>Joined Date :</strong> <span id="joined_date"></span></p>
+          <p><strong>Company Email :</strong> <span id="email"></span> </p>
         </div>
       </div>
   </div>
@@ -78,7 +81,32 @@
     window.location.href = page;
   }
 
-  
+  $(document).ready(function() {
+    async function fetchUserDetail() {
+      try {
+        const response = await fetch("/api/user/profile");
+        if (!response.ok) {
+          throw new Error('Failed to fetch user detail');
+        }
+        const userDetail = await response.json();
+        // Process the user detail data here
+        console.log(userDetail);
+        $('.name-add-emp h3').text(userDetail.full_name);
+        $('.employee-post').text(userDetail.job_title);
+        $('.employee-address').text(userDetail.address);
+        $('.employee-joined').text(`Employee Since ${userDetail.joined_date}`);
+        $('#gender').text(userDetail.gender);
+        $('#phone').text(userDetail.phone);
+        $('#user_id').text(userDetail.user_id);
+        $('#joined_date').text(userDetail.joined_date);
+        $('#email').text(userDetail.email);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchUserDetail();
+  });
 </script>
 
 </body>

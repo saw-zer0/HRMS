@@ -14,7 +14,7 @@
 
     <body>
         <div class="logo-container">
-            <img src="/logo.png" alt="logo" />
+            <img src="/LOGO.png" alt="logo" />
         </div>
         <div class="container">
             <div class="image-container"></div>
@@ -77,9 +77,15 @@
                         },
                         body: JSON.stringify(formData),
                     })
-                    console.log(response.json())
+                    const data = await response.json()
+                    console.log(data)
+                    // if response is successful, store the token in local storage and redirect to home page
                     if (response.ok) {
+                        // localStorage.setItem("jwt", data.accessToken)
+                        document.cookie = `jwt=${data.accessToken}`
                         window.location.href = "/"
+                    } else {
+                        alert(data.message)
                     }
                 } catch (error) {
                     console.error("Error:", error.message)
