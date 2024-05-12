@@ -13,18 +13,56 @@
             <div class="sidebar">
                 <h2><img src="LOGO.png" class="logo" /></h2>
                 <ul>
-                    <li class="home"><a href="/" class="nav-item">Home</a></li>
+                    <li class="home">
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/')"
+                            >Home</a
+                        >
+                    </li>
                     <li class="profile">
-                        <a href="/profile" class="nav-item">Profile</a>
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/admin/user')"
+                            >Profile</a
+                        >
                     </li>
                     <li class="attendance">
-                        <a href="./attendance" class="nav-item">Attendance</a>
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/admin/attendance')"
+                            >Attendance
+                            <span
+                                class="red-dot"
+                                style="
+                                    background-color: #e74c3c;
+                                    display: none;
+                                    width: 10px;
+                                    height: 10px;
+                                    border-radius: 50%;
+                                    margin-left: 10px;
+                                "
+                            ></span>
+                        </a>
                     </li>
                     <li class="leave">
-                        <a href="./leave" class="nav-item">Leave</a>
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/admin/leave')"
+                            >Leave</a
+                        >
                     </li>
                     <li class="payroll">
-                        <a href="./payroll" class="nav-item">Payroll</a>
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/admin/payroll')"
+                            >Payroll</a
+                        >
                     </li>
                 </ul>
                 <div class="social_media"></div>
@@ -114,6 +152,9 @@
         </div>
 
         <script>
+            function navigateToPage(page) {
+                window.location.href = page
+            }
             document.addEventListener("DOMContentLoaded", function () {
                 const displayAttendanceRecords = () => {
                     fetch("/api/attendance")
@@ -167,6 +208,17 @@
                                 ]
 
                                 cols.forEach((data) => {
+                                    if (
+                                        data === "status" &&
+                                        record[data] === "PENDING"
+                                    ) {
+                                        let redDot =
+                                            document.getElementsByClassName(
+                                                "red-dot"
+                                            )[0]
+                                        redDot.style.display = "inline-block"
+                                    }
+
                                     var cell = document.createElement("td")
                                     cell.setAttribute("class", data)
                                     cell.textContent = record[data]

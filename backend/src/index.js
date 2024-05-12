@@ -7,7 +7,6 @@ const apiRouter = require("./routes");
 const pageRouter = require("./pages/routes");
 const cookieParser = require("cookie-parser");
 
-const job = require("./utils/scheduleMail");
 
 const staticPath = path.join(__dirname, "../public");
 const srcPath = path.join(__dirname, "../public/src");
@@ -20,6 +19,7 @@ server.use(cookieParser());
 
 server.use("/", pageRouter);
 server.use("/api", apiRouter);
+const job = require("./utils/scheduleMail");
 
 const PORT = 8080;
 server.listen(PORT, () => console.log(`Server started on port ${PORT}`));
