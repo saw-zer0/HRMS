@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance</title>
-    <link rel="stylesheet" href="attendance.css">
+    <link rel="stylesheet" href="attendance_copy.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -35,7 +35,6 @@
           <a href="#">Upcoming birthday: Happy Birthday to Sarah Johnson!</a>
         </div>
       </div>
-
       
       <div class="profile">
         <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
@@ -57,19 +56,19 @@
         
         </span>
       </div>
-      <button class="log-out">Logout</button>
-      <div id="logoutPopup" class="popup-logout">
-        <div class="popup-content">
-          <span class="close" id="closeLogout">&times;</span>
-          <div class="btn-container">
-            <h3>Are you sure you want to logout?</h3>
-            <div class="button-group">
-              <button id="confirmLogout">Logout</button>
-            <button id="cancelLogout" >Cancel</button> 
-            </div>
+      
+      <section><button class="logout">Logout</button>
+        <span class="overlay"></span>
+  
+        <div class="modal-box">
+          <h2>Logout</h2>
+          <h3>Are you sure you want to log out?</h3>
+  
+          <div class="buttons">
+            <button class="close-btn">Cancel</button>
+            <button class="confirm-btn">Logout</button>
           </div>
-        </div>
-      </div>
+        </div></section>
       
     </div>
 
@@ -144,7 +143,6 @@
         </span>
       </div>
 
-      
       <script>
         //profile popup
         document.addEventListener("DOMContentLoaded", function() {
@@ -306,43 +304,28 @@ window.addEventListener('click', function(event) {
     // })
     // .catch(error => console.error("Error fetching attendance data:", error));
 
-    //Logout functions
-   // Get the logout button
-var logoutBtn = document.querySelector(".log-out");
+    //logout button
+const section = document.querySelector("section"),
+overlay = document.querySelector(".overlay"),
+showBtn = document.querySelector(".logout"),
+closeBtn = document.querySelector(".close-btn");
 
-// Get the popup
-var popup = document.getElementById("logoutPopup");
-
-// Get the close button
-var closeBtn = document.getElementById("closeLogout");
-
-// When the user clicks the logout button, show the popup
-logoutBtn.onclick = function() {
-  popup.style.display = "block";
+//showBtn.addEventListener("click", () => section.classList.add("active"));
+showBtn.addEventListener("click", () => {
+if (section) {
+    section.classList.add("active");
+} else {
+    console.error("Main content element not found!");
 }
+});
 
-// When the user clicks on the close button, hide the popup
-closeBtn.onclick = function() {
-  popup.style.display = "none";
-}
+overlay.addEventListener("click", () =>
+section.classList.remove("active")
+);
 
-// When the user clicks anywhere outside of the popup, hide the popup
-window.onclick = function(event) {
-  if (event.target == popup) {
-    popup.style.display = "none";
-  }
-}
-
-// When the user clicks the "Yes, Logout" button, perform logout
-document.getElementById("confirmLogout").onclick = function() {
-  // Perform logout action here
-  alert("Logged out successfully!");
-}
-
-// When the user clicks the "Cancel" button, hide the popup
-document.getElementById("cancelLogout").onclick = function() {
-  popup.style.display = "none";
-}
+closeBtn.addEventListener("click", () =>
+section.classList.remove("active")
+);
 
       </script>
 </body>

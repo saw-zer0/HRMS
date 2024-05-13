@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payroll</title>
-    <link rel="stylesheet" href="payroll.css">
+    <link rel="stylesheet" href="payroll_copy.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 </head>
 <body>
 
@@ -23,17 +23,19 @@
     <div class="social_media">
     </div>
   </div>
+
   <div class="main_content">
     <div class="header">
       <div class="notification">
         <button class="notify-btn"><i class="fas fa-bell"></i></button>
-        <!-- <div class="dropdown-content" id="dropdownContent">
-          
+        <div class="dropdown-content" id="dropdownContent">
+          <!-- Dummy notifications -->
           <a href="#">New leave request from John Doe</a>
           <a href="#">Reminder: Performance review due for Jane Smith</a>
           <a href="#">Upcoming birthday: Happy Birthday to Sarah Johnson!</a>
-        </div> -->
+        </div>
       </div>
+
       <div class="profile">
         <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
       </div>
@@ -44,9 +46,9 @@
            <div class="image-container">
             <img src="profile.png" alt="Image" class="popup-image">
            </div> 
-           <span class="edit-profile">
+           <!-- <span class="edit-profile">
             <a href="#" id="edit-profile-link">Edit Profile</a>
-          </span>
+          </span> -->
           <p class="name">Anup Thapa</p>
           <p>Email: anup@example.com</p>
           <p>Address: kamalpokhari</p>
@@ -54,8 +56,21 @@
         
         </span>
       </div>
-      <button class="log-out">Logout</button>
       
+      <section><button class="logout">Logout</button>
+        <span class="overlay"></span>
+  
+        <div class="modal-box">
+          <h2>Logout</h2>
+          <h3>Are you sure you want to log out?</h3>
+  
+          <div class="buttons">
+            <button class="close-btn">Cancel</button>
+            <button class="confirm-btn">Logout</button>
+          </div>
+        </div></section>
+      
+     
     </div>
     <div class="info">
       <div class="box-container">
@@ -120,8 +135,9 @@
           </div>
         </div>
       </div>
+
       <script>
-        
+      
         document.addEventListener("DOMContentLoaded", function() {
           var profileButton = document.querySelector(".profile-button");
           var popup = document.querySelector(".popup");
@@ -135,5 +151,57 @@
             popup.style.display = "none";
           });
         });
+
+        // Get the bell button and dropdown content
+var bellButton = document.querySelector('.notify-btn');
+var dropdownContent = document.getElementById('dropdownContent');
+
+// Toggle dropdown visibility on bell button click
+bellButton.addEventListener('click', function(event) {
+  // Prevent default action of button click
+  event.preventDefault();
+  
+  // Toggle the visibility of the dropdown content
+  dropdownContent.classList.toggle('show');
+  
+  // Get the position of the bell button
+  var buttonRect = bellButton.getBoundingClientRect();
+  
+  // Set the position of the dropdown content relative to the bell button
+  dropdownContent.style.top = (buttonRect.bottom + window.pageYOffset) + 'px';
+  dropdownContent.style.left = buttonRect.left + 'px';
+});
+
+// Close the dropdown if the user clicks outside of it
+window.addEventListener('click', function(event) {
+  if (!event.target.matches('.notify-btn')) {
+    dropdownContent.classList.remove('show');
+  }
+});
+
+  //logout button
+const section = document.querySelector("section"),
+        overlay = document.querySelector(".overlay"),
+        showBtn = document.querySelector(".logout"),
+        closeBtn = document.querySelector(".close-btn");
+
+      //showBtn.addEventListener("click", () => section.classList.add("active"));
+      showBtn.addEventListener("click", () => {
+        if (section) {
+            section.classList.add("active");
+        } else {
+            console.error("Main content element not found!");
+        }
+    });
+
+      overlay.addEventListener("click", () =>
+        section.classList.remove("active")
+      );
+
+      closeBtn.addEventListener("click", () =>
+        section.classList.remove("active")
+      );
+
+    
       </script>
       </html>
