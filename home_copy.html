@@ -27,9 +27,15 @@
   </div>
   <div class="main_content">
     <div class="header">
-        <div class="notification">
-          <button class="notify-btn"><i class="fas fa-bell"></i></button>
-            </div>
+      <div class="notification">
+        <button class="notify-btn"><i class="fas fa-bell"></i></button>
+        <div class="dropdown-content" id="dropdownContent">
+          <a href="#">New leave request from John Doe</a>
+          <a href="#">Reminder: Performance review due for Jane Smith</a>
+          <a href="#">Upcoming birthday: Happy Birthday to Sarah Johnson!</a>
+        </div>
+      </div>
+
             <div class="profile">
               <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
               <div class="popup" id="popup">
@@ -38,7 +44,7 @@
                   <span class="close" id="close">&times;</span>
                    <div class="image-container">
                     <img src="profile.png" alt="Image" class="popup-image">
-                   </div> 
+                   </div> `
                    <!-- <span class="edit-profile">
                     <a href="#" id="edit-profile-link">Edit Profile</a>
                   </span> -->
@@ -147,6 +153,33 @@
 </div>
 
 <script>
+
+    // Get the bell button and dropdown content
+var bellButton = document.querySelector('.notify-btn');
+var dropdownContent = document.getElementById('dropdownContent');
+
+// Toggle dropdown visibility on bell button click
+bellButton.addEventListener('click', function(event) {
+  // Prevent default action of button click
+  event.preventDefault();
+  
+  // Toggle the visibility of the dropdown content
+  dropdownContent.classList.toggle('show');
+  
+  // Get the position of the bell button
+  var buttonRect = bellButton.getBoundingClientRect();
+  
+// Set the position of the dropdown content relative to the bell button
+  dropdownContent.style.top = (buttonRect.bottom + window.pageYOffset) + 'px';
+  dropdownContent.style.left = buttonRect.left + 'px';
+});
+
+// Close the dropdown if the user clicks outside of it
+window.addEventListener('click', function(event) {
+  if (!event.target.matches('.notify-btn')) {
+    dropdownContent.classList.remove('show');
+  }
+});
 
   document.addEventListener("DOMContentLoaded", function() {
     var profileButton = document.querySelector(".profile-button");
