@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="../../src/admin/manage_user.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-</head>
+    <script src="../../src/script.js"></script>
+
+  </head>
 <body>
 
 <div class="wrapper">
   <div class="sidebar">
-    <h2><img src="image/LOGO.png" class="logo"></h2>
+    <h2><img src="/LOGO.png" class="logo"></h2>
     <ul>
       <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('/')">Home</a></li>
       <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('/profile')">Profile</a></li>
@@ -33,7 +35,7 @@
             <div class="profile">
               <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
             </div>
-        <button class="log-out" onclick="confirmLogout()">Logout</button>
+        <button class="log-out" onclick="logout()">Logout</button>
         
     </div>
 
@@ -115,6 +117,8 @@
 </div>
 
 <script>
+
+  console.log("------------------------------------------")
   function showAddUserPopup() {
     document.getElementById("addUserPopup").style.display = "block";
   }
@@ -138,7 +142,7 @@
   const dispalyUsers = async () => {
     const response = await fetch("/api/user");
     const data = await response.json();
-    console.log(data);
+    console.log(data);  
     // Display users in a table
     data.forEach(user => {
       const row = document.createElement("tr");
@@ -163,14 +167,14 @@
     document.querySelector("tbody").innerHTML = "";
   };
 
-  $(document).ready(function() {
+
     dispalyUsers();
 
-    $("#addUserForm").submit(function(event) {
+    document.querySelector("#addUserForm").addEventListener("submit",function(event) {
     const userCreateForm = $("#addUserForm")[0];
       event.preventDefault(); // Prevent the default form submission behavior
       const formData = new FormData(userCreateForm);
-      const name = formData.get("firstName")+formData.get("lastName");
+      const name = formData.get("firstName")+" "+formData.get("lastName");
       const email = formData.get("email");
       const gender = formData.get("gender");
       const role = formData.get("role");
@@ -210,7 +214,7 @@
         });
       // closeAddUserPopup(); // Close the add user popup after form submission
     });
-  });
+
   
     function showPopup() {
       document.getElementById("popup").style.display = "block";

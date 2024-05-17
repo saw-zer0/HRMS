@@ -11,17 +11,17 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-async function sendMail() {
+async function sendMail(to, subject, text, html) {
     // send mail with defined transport object
     const info = await transporter.sendMail({
       from: {
         name: "HRMS",
         address: process.env.SENDER_EMAIL,
       }, // sender address
-      to: "np03cs4a220052@heraldcollege.edu.np", // list of receivers
-      subject: "Hope", // Subject line
-      text: "Hope you had a woderful day", // plain text body
-      html: "<b>Wonderful day ain't it</b>", // html body
+      to, // list of receivers
+      subject, // Subject line
+      text, // plain text body
+      html, // html body
     });
   
     console.log("Message sent: %s", info.messageId);

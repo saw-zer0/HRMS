@@ -7,14 +7,16 @@
     <title>Home</title>
     <link rel="stylesheet" href="src/dashboard/home.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="../../src/script.js"></script>
+
 </head>
 <body>
 
 <div class="wrapper">
   <div class="sidebar">
-    <h2><img src="image/LOGO.png" class="logo"></h2>
+    <h2><img src="/LOGO.png" class="logo"></h2>
     <ul>
-      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('home')">Home</a></li>
+      <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('./')">Home</a></li>
       <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('profile')">Profile</a></li>
       <li class="attendance"><a href="#" class="nav-item" onclick="navigateToPage('attendance')">Attendance</a></li>
       <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('leave')">Leave</a></li>
@@ -32,7 +34,7 @@
             <div class="profile">
               <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
             </div>
-        <button class="log-out" onclick="confirmLogout()">Logout</button>
+        <button class="log-out" onclick="logout()">Logout</button>
         
     </div>
     <div class="info">
@@ -98,7 +100,7 @@
 
     <div><b>Next Payroll Date:</b> <span class="pay-date">2023-05-11</span>
     </div>
-    <button class="pay-his-btn">Payroll History <i class="fas fa-chart-bar graph-icon"></i></button>
+    <button class="pay-his-btn" onclick="window.location.href = './payroll'">Payroll History <i class="fas fa-chart-bar graph-icon"></i></button>
     </div>
     
     <div>
@@ -126,6 +128,7 @@
       window.location.href = "logout";
     }
   }
+
 </script>
 
 </body>

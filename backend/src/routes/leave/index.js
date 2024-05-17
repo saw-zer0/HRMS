@@ -2,19 +2,24 @@ const express = require("express");
 const router = express.Router();
 const client = require("../../database");
 const { getLeave, getBulkLeave } = require("./leave.controller");
+const {isAdmin} = require("../helper/auth");
 
-router.get("/",getBulkLeave, async (req, res) => {
+router.get("/", isAdmin ,getBulkLeave, async (req, res) => {
     res.json(req.leave);
 });
 
 //fetching leave data for a user from database
-router.get("/user/:user_id", async (req, res) => {
+router.get("/user_leaves", async (req, res) => {
     try {
         const query = "SELECT * FROM leave WHERE user_id = $1";
-        const values = [req.params.id];
+        const values = [req.user.user_id];
         const result = await client.query(query, values);
-        const leave = result.rows[0];
-
+        const leave = result.rows;
+        leave.forEach(leave => {
+            leave.start_date = new Date(leave.start_date).toLocaleDateString("en-US", {timeZone: "Asia/Kathmandu"});
+            leave.end_date = new Date(leave.end_date).toLocaleDateString("en-US", {timeZone: "Asia/Kathmandu"});
+        });
+        console.log(leave)
         res.json(leave);
     } catch (error) {
         console.error("Error fetching leave:", error);
@@ -29,9 +34,10 @@ router.get("/:id", getLeave, (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const { user_id, start_date, end_date, reason, type } = req.body;
+        const { start_date, end_date, reason, type } = req.body;
+        const user_id = req.user.user_id;
         const query = "INSERT INTO leave (user_id, start_date, end_date, type, reason, status) VALUES ($1, $2, $3, $4, $5, $6)";
-        const values = [null, start_date, end_date, type, reason, "PENDING"];
+        const values = [user_id, start_date, end_date, type, reason, "PENDING"];
         await client.query(query, values);
 
         res.sendStatus(200);
@@ -48,7 +54,7 @@ router.put("/:id",getLeave, async (req, res) => {
         const query = "UPDATE leave SET start_date = $1, end_date = $2, reason = $3, type = $4 WHERE leave_id = $5";
         const values = [start_date, end_date, reason, type, req.params.id];
         await client.query(query, values);
-
+        console.log("Leave updated")
         res.sendStatus(200);
     } catch (error) {
         console.error("Error updating leave:", error);
@@ -58,7 +64,7 @@ router.put("/:id",getLeave, async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     try {
-        const query = "DELETE FROM leave WHERE leave_id = $1";
+        const query = "DELETE FROM leave WHERE leave_id = $1 and status = 'PENDING' RETURNING *";
         const values = [req.params.id];
         const result = await client.query(query, values);
         if(result.rows.length === 0) return res.sendStatus(404);
@@ -71,7 +77,7 @@ router.delete("/:id", async (req, res) => {
 
 router.put("/approve/:id", async (req, res) => {
     try {
-        const query = "UPDATE leave SET status = $1 WHERE leave_id = $2";
+        const query = "UPDATE leave SET status = $1 WHERE leave_id = $2 and status = 'PENDING'";
         const values = ["APPROVED", req.params.id];
         await client.query(query, values);
 
@@ -94,5 +100,7 @@ router.put("/reject/:id", async (req, res) => {
         res.sendStatus(500);
     }
 });
+
+
 
 module.exports = router;
