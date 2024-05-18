@@ -62,6 +62,7 @@
         <div class="attendance-header">
           <h2>Attendance</h2>
           <div class="attendance-record">
+            
             <h3>Attendance Record for Current Month</h3>
             <div class="record-boxes">
               <div class="box">
@@ -83,7 +84,9 @@
           <button class="clock-in-btn" id="clock-in-button">Clock In</button>
           <button class="clock-out-btn" id="clock-out-button">Clock Out</button>
         </div>
-        
+        <div class="view-requests">
+          <button id="view-requests-btn">View requests</button>
+      </div>
         <div class="time-sheet">
           <h3>Attendance Time Sheet</h3>
           <table class="attendanceTable">
@@ -117,6 +120,28 @@
             </tbody>
         </table>
         </div>
+      </div>
+      <div
+          class="requests-container"
+          id="requests-container"
+          style="display: none"
+      >
+          <span class="close-btn" id="close-requests">&times;</span>
+          <table class="requests-table">
+              <thead>
+                  <tr>
+                      <th>Employee Name</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th>New Clock In</th>
+                      <th>Clock In</th>
+                      <th>New Clock Out</th>
+                      <th>Clock Out</th>
+                      <th>Remark</th>
+                  </tr>
+              </thead>
+              <tbody></tbody>
+          </table>
       </div>
       <div class="correction-popup" id="correction-popup">
         <span class="popup-content">
@@ -153,6 +178,16 @@
                     required
                 ></textarea>
             </div>
+              <div class="form-group">
+                <label for="team"
+                    >Team:</label
+                ><br />
+                <select id="team-dropdown" class="form-select" aria-label="Default select example">
+                  <option selected value="">Open this select menu</option>
+                  <option value="1">One</option>
+                  
+                </select>
+            </div>
             <div class="button-container">
               <button type="button" id="cancel-correction">Cancel</button>
               <button type="submit">Submit</button>
@@ -183,7 +218,6 @@
     });
 
     function openApplyCorrectionPopup(id) {
-      console.log(id)
       const getAttendanceRecord = async (id) => {
         try {
           const response = await fetch(`api/attendance/${id}`, {
@@ -195,6 +229,23 @@
           if (!response.ok) {
             throw new Error("Failed to fetch attendance record");
           }
+          const teamResponse = await fetch("api/team/members/verify", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
+          if (!teamResponse.ok) {
+            throw new Error("Failed to fetch team data");
+          }
+          const teamData = await teamResponse.json();
+          const teamDropdown = document.getElementById("team-dropdown");
+          teamData.forEach((team) => {
+            const option = document.createElement("option");
+            option.value = team.team_id;
+            option.text = team.name;
+            teamDropdown.appendChild(option);
+          });
           const data = await response.json();
           console.log(data);
           // Process the attendance record data here
@@ -242,6 +293,7 @@
         var clockinValue = document.getElementById("clockinField").value;
         var clockoutValue = document.getElementById("clockoutField").value;
         var remarksValue = document.getElementById("remarks").value;
+        var teamValue = document.getElementById("team-dropdown").value;
         //post data to the server
         try {
           const response = await fetch("api/attendance/requests", {
@@ -254,7 +306,8 @@
               clock_in: clockinValue,
               clock_out: clockoutValue,
               remark: remarksValue,
-              att_id: editAttId
+              att_id: editAttId,
+              team: teamValue
             })
           });
           if (!response.ok) {
@@ -389,7 +442,8 @@
                 <td>${attendance.clock_out}</td>
                 <td>${attendance.remark}</td>
                 <td>${attendance.status}</td>
-                <td><button data-attid=${attendance.attendance_id} class="apply-correction-btn" onclick="openApplyCorrectionPopup(this.dataset.attid)">Apply</button></td>
+                ${attendance.status === "PENDING" ? `<td><button data-attid=${attendance.attendance_id} class="apply-correction-btn" onclick="openApplyCorrectionPopup(this.dataset.attid)">Apply</button></td>` : "" }
+                
             `;
         });
       }
@@ -413,6 +467,130 @@
     getAttendanceRequest();
     
     });
+
+    var viewRequestsBtn =
+        document.getElementById("view-requests-btn")
+    var closeRequestsBtn = document.getElementById("close-requests")
+    var requestsContainer =
+        document.getElementById("requests-container")
+
+    viewRequestsBtn.addEventListener("click", function () {
+        if (requestsContainer.style.display === "none") {
+            requestsContainer.style.display = "block"
+        } else {
+            requestsContainer.style.display = "none"
+        }
+    })
+
+    closeRequestsBtn.addEventListener("click", function () {
+        // Hide the requests container when close button is clicked
+        requestsContainer.style.display = "none"
+    })
+
+    //fetch requests
+    const displayRequests = (requests) => {
+      //display attendance data in a table
+      const table = document.querySelector(".requests-table tbody");
+      requests.forEach((request) => {
+          const row = table.insertRow();
+          row.innerHTML = `
+              <td>${request.full_name}</td>
+              <td>${request.status}</td>
+              <td>${request.date}</td>
+              <td>${request.clock_in}</td>
+              <td>${request.old_clockin}</td>
+              <td>${request.clock_out}</td>
+              <td>${request.old_clockout}</td>
+              <td>${request.remark}</td>
+          `;
+          var approveButton =
+                                    document.createElement("button")
+                                approveButton.textContent = "Approve"
+                                approveButton.classList.add("approve-btn")
+                                approveButton.addEventListener(
+                                    "click",
+                                    function () {
+                                        fetch(
+                                            `/api/attendance/requests/${request.att_req_id}/approve_verify`,
+                                            {
+                                                method: "PUT",
+                                                headers: {
+                                                    "Content-Type":
+                                                        "application/json",
+                                                },
+                                                body: JSON.stringify({
+                                                    status: "Approved",
+                                                }),
+                                            }
+                                        )
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                document.querySelector(
+                                                    `#att${id} .status`
+                                                ).innerHTML = "Rejected"
+                                                console.log(data)
+                                            })
+                                            .catch((error) => {
+                                                console.error(error)
+                                            })
+                                    }
+                                )
+                                row.appendChild(approveButton)
+
+                                var rejectButton =
+                                    document.createElement("button")
+                                rejectButton.textContent = "Reject"
+                                rejectButton.classList.add("reject-btn")
+                                rejectButton.addEventListener(
+                                    "click",
+                                    function () {
+                                        fetch(
+                                            `/api/attendance/requests/${request.att_req_id}/reject_verify`,
+                                            {
+                                                method: "PUT",
+                                                headers: {
+                                                    "Content-Type":
+                                                        "application/json",
+                                                },
+                                                body: JSON.stringify({
+                                                    status: "Rejected",
+                                                }),
+                                            }
+                                        )
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                console.log(data)
+                                            })
+                                            .catch((error) => {
+                                                console.error(error)
+                                            })
+                                    }
+                                )
+                                row.appendChild(rejectButton)
+      });
+    }
+
+
+
+    const getRequests = async () => {
+      try {
+          const response = await fetch("api/attendance/requests/teams", {
+              method: "GET",
+              headers: {
+                  "Content-Type": "application/json"
+              }
+          });
+          if (!response.ok) {
+              throw new Error("Failed to fetch attendance request data");
+          }
+          const data = await response.json();
+          console.log(data)
+          displayRequests(data);
+      } catch (error) {
+          console.error("Error:", error.message);
+      }
+  };
+  getRequests();
   </script>
 </body>
 </html>

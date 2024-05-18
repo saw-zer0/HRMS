@@ -7,10 +7,16 @@ const sendMail = require("../helper/sendMail");
 
 router.get("/", async (req, res) => {
     try {
-        const query = "SELECT * FROM users";
-        const result = await client.query(query);
+        const searchTerm = req.query.search;
+        let query = "SELECT * FROM users";
+        let values = [];
+        let result;
+        if(searchTerm){
+            query = "SELECT * FROM users WHERE full_name LIKE $1 OR email LIKE $1";
+            values = [`%${searchTerm}%`];
+        }
+        result = await client.query(query, values);
         const users = result.rows;
-
         res.json(users);
     } catch (error) {
         console.error("Error fetching users:", error);
@@ -70,11 +76,11 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     try {
-        const query = "DELETE FROM users WHERE id = $1";
+        const query = "DELETE FROM users WHERE user_id = $1";
         const values = [req.params.id];
         await client.query(query, values);
 
-        res.sendStatus(200);
+        res.json({"message": "User deleted successfully"});
     } catch (error) {
         console.error("Error deleting user:", error);
         res.sendStatus(500);
