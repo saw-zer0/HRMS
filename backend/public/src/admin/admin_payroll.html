@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payroll</title>
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+/>
+<link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="../../src/admin/admin_payroll.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="../../src/script.js"></script>
@@ -28,7 +39,7 @@
             href="#"
             class="nav-item"
             onclick="navigateToPage('/admin/user')"
-            >Profile</a
+            >Users</a
         >
     </li>
     <li class="attendance">
@@ -110,7 +121,7 @@
       </div>
     </div>
   </div>
-  <button class="add-payroll" onclick="bulkpay()">Add Payroll</button>
+  <button class="add-payroll btn btn-info mx-3" onclick="bulkpay()">Add Payroll</button>
       <script>
         function navigateToPage(page) {
           window.location.href = page;

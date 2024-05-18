@@ -68,7 +68,7 @@ router.get("/", async (req, res) => {
 router.get("/requests", async (req, res) => {
     try {
 
-        const query = "SELECT ar.*, a.clock_in old_clockin, a.clock_out old_clockout, u.full_name FROM attendance_requests ar JOIN attendance a ON ar.att_id = a.attendance_id JOIN users u ON a.user_id = u.user_id ORDER BY ar.date_created";
+        const query = "SELECT ar.*, a.clock_in old_clockin, a.clock_out old_clockout, u.full_name FROM attendance_requests ar JOIN attendance a ON ar.att_id = a.attendance_id JOIN users u ON a.user_id = u.user_id WHERE is_verified = 'VERIFIED' ORDER BY ar.date_created";
         const result = await client.query(query);
         const attendanceRequests = result.rows;
 
@@ -173,5 +173,50 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+router.get("/requests/pending", async (req, res) => {
+    try {
+        const query = "SELECT * FROM attendance_requests WHERE status = 'PENDING' ";
+        const result = await client.query(query);
+        const pendingRequests = result.rows;
+
+        res.json(pendingRequests);
+    } catch (error) {
+        console.error("Error fetching pending attendance requests:", error);
+        res.sendStatus(500);
+    }
+});
+
+router.get("/requests/teams", async (req, res) => {
+    try {
+        const query = "SELECT ar.*, a.clock_in old_clockin, a.clock_out old_clockout, a.date, u.full_name  FROM attendance_requests ar JOIN attendance a ON ar.att_id = a.attendance_id JOIN users u ON a.user_id = u.user_id WHERE team IN (SELECT team_id FROM team_users WHERE user_id = $1) ORDER BY ar.date_created";
+        const values = [req.user.user_id];
+        const result = await client.query(query, values);
+        const teams = result.rows;
+
+        res.json(teams);
+    } catch (error) {
+        console.error("Error fetching teams:", error);
+        res.sendStatus(500);
+    }
+}
+);
+
+router.get("/requests/:id/approve_verify", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { rows } = await client.query("SELECT * FROM attendance_requests WHERE att_req_id = $1", [id]);
+        const {att_id, clock_in, clock_out} = rows[0];
+        const query = "UPDATE attendance_requests SET is_verified = $2 WHERE att_req_id = $3";
+        const values = [ "VERIFIED", id];
+        await client.query(query, values);
+
+
+        res.sendStatus(200);
+    } catch (error) {
+        console.error("Error updating attendance request:", error);
+        res.sendStatus(500);
+    }
+}
+);
 
 module.exports = router;
