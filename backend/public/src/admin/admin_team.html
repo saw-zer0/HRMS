@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Admin_Home</title>
+        <link rel="stylesheet" href="../../src/admin/admin_team.css" />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="sidebar">
+                <h2><img src="/LOGO.png" class="logo" /></h2>
+                <ul>
+                    <li class="home">
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/')"
+                            >Home</a
+                        >
+                    </li>
+                    <li class="profile">
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/admin/user')"
+                            >Users</a
+                        >
+                    </li>
+                    <li class="attendance">
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/admin/attendance')"
+                            >Attendance</a
+                        >
+                    </li>
+                    <li class="leave">
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/admin/leave')"
+                            >Leave</a
+                        >
+                    </li>
+                    <li class="payroll">
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/admin/payroll')"
+                            >Payroll</a
+                        >
+                    </li>
+                </ul>
+
+                <div class="social_media"></div>
+            </div>
+            <div class="main_content">
+                <div class="header">
+                    <div class="notification">
+                        <button class="notify-btn">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                    </div>
+                    <div class="profile">
+                        <button class="profile-button" onclick="">
+                            <i class="fas fa-user"></i><span>AnupThapa</span>
+                        </button>
+                    </div>
+                    <button class="log-out" onclick="logout()">Logout</button>
+                </div>
+
+                <div class="container">
+                    <h1>Team CRUD</h1>
+                    <!-- Add Team Form -->
+                    <form id="addTeamForm">
+                        <div class="form-group">
+                            <label for="teamName">Team Name</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="teamName"
+                                placeholder="Enter team name"
+                            />
+                        </div>
+                        <!-- <div class="form-group">
+                <label for="teamDescription">Team Description</label>
+                <textarea
+                    class="form-control"
+                    id="teamDescription"
+                    rows="3"
+                    placeholder="Enter team description"
+                ></textarea>
+            </div> -->
+                        <button type="submit" class="btn btn-primary">
+                            Add Team
+                        </button>
+                    </form>
+
+                    <!-- Team List -->
+                    <table class="table mt-4">
+                        <thead>
+                            <tr>
+                                <th>Team Name</th>
+                                <!-- <th>Team Description</th> -->
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teamList">
+                            <!-- Team data will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modal -->
+                <div
+                    class="modal fade"
+                    id="manageModal"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="manageModalLabel"
+                    aria-hidden="true"
+                >
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="manageModalLabel">
+                                    Manage Team
+                                </h5>
+                                <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                    onClick="closeTeamModal()"
+                                >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Add your manage team form or content here -->
+                                <div class="team-left">
+                                    <h5>Team Members</h5>
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Can Verify</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="memberList">
+                                            <!-- Member data will be dynamically added here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="team-right">
+                                    <form id="searchUserForm">
+                                        <div class="form-group">
+                                            <label for="searchUser"
+                                                >Search User</label
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="searchUser"
+                                                placeholder="Enter user name or email"
+                                            />
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                        >
+                                            Search
+                                        </button>
+                                    </form>
+                                    <h5>Users</h5>
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="userList">
+                                            <!-- Member data will be dynamically added here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-dismiss="modal"
+                                    onClick="closeTeamModal()"
+                                >
+                                    Close
+                                </button>
+                                <button type="button" class="btn btn-primary">
+                                    Save changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script
+                    src="https://code.jquery.com/jquery-3.7.1.js"
+                    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+                    crossorigin="anonymous"
+                ></script>
+
+                <!-- Custom JavaScript -->
+                <script src="src/routes/team/index.js"></script>
+            </div>
+        </div>
+
+        <script>
+            function navigateToPage(path) {
+                window.location.href = path
+            }
+            // Get all teams list here
+            let currentTeamId = null
+            async function getTeams() {
+                try {
+                    const response = await fetch("/api/team")
+                    const teams = await response.json()
+                    // Process the teams data here
+                    const teamList = document.getElementById("teamList")
+                    teams.forEach((team) => {
+                        const row = document.createElement("tr")
+                        row.innerHTML = `
+                            <td>${team.name}</td>
+                            <td>
+                                <button class="btn btn-primary" onClick="openTeamModal(${team.team_id})">Manage</button>
+                                <button class="btn btn-danger" onClick="deleteTeam(${team.team_id})"">Delete</button>
+                            </td>
+                        `
+                        teamList.appendChild(row)
+                    })
+                } catch (error) {
+                    console.error("Error fetching teams:", error)
+                }
+            }
+
+            getTeams()
+            document
+                .getElementById("addTeamForm")
+                .addEventListener("submit", async (event) => {
+                    event.preventDefault()
+                    const teamName = document.getElementById("teamName").value
+                    // Validate the form data here
+
+                    try {
+                        const response = await fetch("/api/team", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ name: teamName }),
+                        })
+                        if (response.ok) {
+                            // Team added successfully, update the team list
+                            const team = await response.json()
+                            const teamList = document.getElementById("teamList")
+                            const row = document.createElement("tr")
+                            row.innerHTML = `
+                                <td>${team.name}</td>
+                                <td>
+                                    <button class="btn btn-primary" data-teamid=${team.team_id}>Manage</button>
+                                    <button class="btn btn-danger" data-teamid=${team.team_id} onclick="deleteTeam(this.dataset.teamid)">Delete</button>
+                                </td>
+                            `
+                            teamList.appendChild(row)
+                            // Reset the form
+                            document.getElementById("addTeamForm").reset()
+                        } else {
+                            console.error(
+                                "Failed to add team:",
+                                response.status
+                            )
+                        }
+                    } catch (error) {
+                        console.error("Error adding team:", error)
+                    }
+                })
+            // Modal popup function for manage button
+            function openTeamModal(teamId) {
+                // Code to open the manage modal here
+                fetchTeamMembers(teamId)
+                currentTeamId = teamId
+                $("#manageModal").show().addClass("show")
+            }
+
+            function closeTeamModal() {
+                // Code to close the manage modal here
+                $("#manageModal").hide().removeClass("show")
+            }
+
+            function deleteTeam(teamId) {
+                // Code to delete the team here
+                console.log("Delete team with id:", teamId)
+            }
+
+            async function addToTeam(teamId, userId) {
+                // Code to add user to team here
+                try {
+                    const response = await fetch(
+                        `/api/team/${teamId}/members`,
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ user_id: userId }),
+                        }
+                    )
+                    if (response.ok) {
+                        // User added to the team successfully, update the member list
+                        const member = await response.json()
+                        fetchTeamMembers(teamId)
+                    } else {
+                        console.error(
+                            "Failed to add user to team:",
+                            response.status
+                        )
+                    }
+                } catch (error) {
+                    console.error("Error adding user to team:", error)
+                }
+            }
+
+            async function fetchTeamMembers(teamId) {
+                try {
+                    const response = await fetch(`/api/team/${teamId}/members`)
+                    if (response.ok) {
+                        const members = await response.json()
+                        const memberList = document.getElementById("memberList")
+                        memberList.innerHTML = "" // Clear previous team members
+
+                        members.forEach((member) => {
+                            const row = document.createElement("tr")
+                            row.innerHTML = `
+                                    <td>${member.full_name}</td>
+                                    <td>${member.email}</td>
+                                    <td>${member.can_verify}</td>
+                                    <td>
+                                        <button class="btn btn-primary" onclick="toggleVerifier(${teamId},${member.user_id})">Toggle Verify</button>
+                                        <button class="btn btn-danger" onclick="removeFromTeam(${teamId},${member.user_id})">Remove</button>
+                                    </td>
+                                `
+                            memberList.appendChild(row)
+                        })
+                    } else {
+                        console.error(
+                            "Failed to fetch team members:",
+                            response.status
+                        )
+                    }
+                } catch (error) {
+                    console.error("Error fetching team members:", error)
+                }
+            }
+
+            document
+                .getElementById("searchUserForm")
+                .addEventListener("submit", async (event) => {
+                    event.preventDefault()
+                    const searchUserInput =
+                        document.getElementById("searchUser").value
+                    // Validate the search input here
+
+                    try {
+                        const response = await fetch(
+                            `/api/user?search=${searchUserInput}`
+                        )
+                        if (response.ok) {
+                            const users = await response.json()
+                            const memberList =
+                                document.getElementById("memberList")
+                            userList.innerHTML = "" // Clear previous search results
+
+                            users.forEach((user) => {
+                                const row = document.createElement("tr")
+                                row.innerHTML = `
+                                <td>${user.full_name}</td>
+                                <td>${user.email}</td>
+                                <td>${user.role}</td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="addToTeam(${currentTeamId},${user.user_id})">Add to Team</button>
+                                </td>
+                            `
+                                userList.appendChild(row)
+                            })
+                        } else {
+                            console.error(
+                                "Failed to search for user:",
+                                response.status
+                            )
+                        }
+                    } catch (error) {
+                        console.error("Error searching for user:", error)
+                    }
+                })
+            // Add event listener to manage buttons
+            async function toggleVerifier(teamId, userId) {
+                try {
+                    const response = await fetch(
+                        `/api/team/${teamId}/members/${userId}/toggle-verify`,
+                        {
+                            method: "PUT",
+                        }
+                    )
+                    if (response.ok) {
+                        // Verification status toggled successfully, update the member list
+                        fetchTeamMembers(teamId)
+                    } else {
+                        console.error(
+                            "Failed to toggle verification status:",
+                            response.status
+                        )
+                    }
+                } catch (error) {
+                    console.error("Error toggling verification status:", error)
+                }
+            }
+
+            async function removeFromTeam(teamId, userId) {
+                try {
+                    const response = await fetch(
+                        `/api/team/${teamId}/members/${userId}`,
+                        {
+                            method: "DELETE",
+                        }
+                    )
+                    if (response.ok) {
+                        // User removed from the team successfully, update the member list
+                        fetchTeamMembers(teamId)
+                    } else {
+                        console.error(
+                            "Failed to remove user from team:",
+                            response.status
+                        )
+                    }
+                } catch (error) {
+                    console.error("Error removing user from team:", error)
+                }
+            }
+        </script>
+    </body>
+</html>

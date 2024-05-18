@@ -18,7 +18,7 @@
     <h2><img src="/LOGO.png" class="logo"></h2>
     <ul>
       <li class="home"><a href="#" class="nav-item" onclick="navigateToPage('/')">Home</a></li>
-      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('/profile')">Profile</a></li>
+      <li class="profile"><a href="#" class="nav-item" onclick="navigateToPage('/admin/user')">Users</a></li>
       <li class="attendance"><a href="#" class="nav-item" onclick="navigateToPage('/admin/attendance')">Attendance</a></li>
       <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('/admin/leave')">Leave</a></li>
       <li class="payroll"><a href="#" class="nav-item" onclick="navigateToPage('/admin/payroll')">Payroll</a></li>
@@ -118,7 +118,6 @@
 
 <script>
 
-  console.log("------------------------------------------")
   function showAddUserPopup() {
     document.getElementById("addUserPopup").style.display = "block";
   }
@@ -150,13 +149,13 @@
         <td>${user.user_id}</td>
         <td>${user.full_name}</td>
         <td>${user.role}</td>
-        <td>${user.joinedDate}</td>
+        <td>${user.joined_date}</td>
         <td>${user.email}</td>
         <td>${user.phone}</td>
         <td>${user.gender}</td>
         <td>
           <button>Edit</button>
-          <button>Delete</button>
+          <button onclick="deleteUser(${user.user_id})">Delete</button>
         </td>
       `;
       document.querySelector("tbody").appendChild(row);
@@ -230,6 +229,25 @@
   function confirmLogout() {
     if (confirm("Are you sure you want to logout?")) {
       window.location.href = "logout";
+    }
+  }
+
+  function deleteUser(userId) {
+    if (confirm("Are you sure you want to delete this user?")) {
+      fetch(`/api/user/${userId}`, {
+        method: "DELETE"
+      })
+        .then(response => response.json())
+        .then(result => {
+          // Handle the response from the server
+          console.log(result);
+          clearUsers();
+          dispalyUsers();
+        })
+        .catch(error => {
+          // Handle any errors that occurred during the request
+          console.error(error);
+        });
     }
   }
 </script>
