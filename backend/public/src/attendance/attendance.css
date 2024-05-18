@@ -68,7 +68,10 @@ body {
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
+  .wrapper .sidebar ul li.attendence{
+  background-color: #586C75;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+}
 .logo {
     height: 120px;
     width: 120px;
@@ -170,10 +173,7 @@ body {
     border-color: #999;
 }
 
-.wrapper .sidebar ul li.attendance {
-    background-color: #586c75;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-}
+
 
 .notify-btn {
     background-color: #ffffff;
