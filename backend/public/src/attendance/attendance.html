@@ -13,7 +13,7 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <link rel="stylesheet" href="src/attendance/attendance.css">
-    <script src="../../src/script.js"></script>
+    <script src="../../src/script.js" defer></script>
 </head>
 <body>
 
@@ -66,16 +66,20 @@
             <h3>Attendance Record for Current Month</h3>
             <div class="record-boxes">
               <div class="box">
-                <h4>Absent Days</h4>
+                <h4>Missed</h4>
                 <p>5</p>
               </div>
               <div class="box">
-                <h4>Present Days</h4>
-                <p>25</p>
+                <h4>Pending Requests</h4>
+                <p>0</p>
               </div>
               <div class="box">
-                <h4>Overtime Days</h4>
-                <p>3</p>
+                <h4>Approved Requests</h4>
+                <p>0</p>
+              </div>
+              <div class="box">
+                <h4>Rejected Requests</h4>
+                <p>0</p>
               </div>
             </div>
           </div>
@@ -184,7 +188,7 @@
                 ><br />
                 <select id="team-dropdown" class="form-select" aria-label="Default select example">
                   <option selected value="">Open this select menu</option>
-                  <option value="1">One</option>
+                  
                   
                 </select>
             </div>
@@ -315,6 +319,7 @@
           }
           alert("Correction request submitted successfully");
           correctionPopup.style.display = "none";
+          getAttendanceRequest();
           // Process the response here
         } catch (error) {
           console.error("Error:", error.message);
@@ -368,7 +373,7 @@
       }
       const getAttendance = async () => {
         try {
-            const response = await fetch("api/attendance", {
+            const response = await fetch("api/attendance/user", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -591,6 +596,51 @@
       }
   };
   getRequests();
+
+  function getMissedCount() {
+    fetch("api/attendance/user/missed", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      document.querySelector(".box:nth-child(1) p").innerText = data.count;
+    })
+    .catch(error => {
+      console.error("Error:", error.message);
+    });
+  }
+  getMissedCount();
+
+  function getRequestCounts() {
+    fetch("api/attendance/requests/user/counts", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      data.forEach((item) => {
+        if (item.status === "PENDING") {
+          document.querySelector(".box:nth-child(2) p").innerText = item.count;
+        } else if (item.status === "APPROVED") {
+          document.querySelector(".box:nth-child(3) p").innerText = item.count;
+        } else if (item.status === "REJECTED") {
+          document.querySelector(".box:nth-child(4) p").innerText = item.count;
+        }
+      });
+      
+    })
+    .catch(error => {
+      console.error("Error:", error.message);
+    });
+  }
+  getRequestCounts();
   </script>
 </body>
 </html>

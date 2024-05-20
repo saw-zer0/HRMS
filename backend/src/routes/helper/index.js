@@ -30,20 +30,27 @@ router.post('/login', async(req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   // Get user with given email from database
+  try{
   const result = await client.query('SELECT * FROM users WHERE email = $1', [email]);
   const user = result.rows[0];
   if (!user) {
-    return res.sendStatus(404);
+    return res.json({ message: "User not found", status: 404});
   }
   // Verify password using bcrypt
+
   const validPassword = await bcrypt.compare(password, user.password);
   if (!validPassword) {
-      return res.sendStatus(401);
+      return res.json({ message: "Invalid password", status: 401});
   }
   const accessToken = generateAccessToken(user)
   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
   refreshTokens.push(refreshToken)
-  res.json({ accessToken: accessToken, refreshToken: refreshToken })
+  res.json({ accessToken: accessToken, refreshToken: refreshToken, status: 200})
+  }
+  catch (error) {
+    console.error("Error logging in:", error);
+    res.json({ message: "Error logging in" , status: 500});
+  }
 })
 
 function generateAccessToken(user) {

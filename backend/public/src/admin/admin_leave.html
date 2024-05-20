@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="../../src/script.js"></script>
+    <script src="../../src/script.js" defer></script>
 
   </head>
 <body>
@@ -33,21 +33,31 @@
                   >Users</a
               >
           </li>
-          <li class="attendance">
-              <a
-                  href="#"
-                  class="nav-item"
-                  onclick="navigateToPage('/admin/attendance')"
-                  >Attendance</a
-              >
-          </li>
-          <li class="leave">
-              <a
-                  href="#"
-                  class="nav-item"
-                  onclick="navigateToPage('/admin/leave')"
-                  >Leave</a
-              >
+          <li class="attendance"><a href="#" class="nav-item" onclick="navigateToPage('./attendance')">Attendance
+            <span
+            class="red-dot"
+            style="
+                background-color: #e74c3c;
+                display: none;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                margin-left: 10px;
+            "
+        ></span>
+          </a></li>
+          <li class="leave"><a href="#" class="nav-item" onclick="navigateToPage('/admin/leave')">Leave
+            <span
+            class="leave-red-dot"
+            style="
+                background-color: #e74c3c;
+                display: none;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                margin-left: 10px;
+            "
+        ></span></a>
           </li>
           <li class="payroll">
               <a
@@ -57,6 +67,15 @@
                   >Payroll</a
               >
           </li>
+          <li class="team">
+            <a
+                href="#"
+                class="nav-item"
+                onclick="navigateToPage('/admin/team')"
+                >Team</a
+            >
+        </li>
+
           </ul>
           <div class="social_media">
           </div>
@@ -77,9 +96,9 @@
           <div class="leave-req">
 
                 <div class="container">
-                    <div class="Total-req"><img src="image/mail.png" class="mail"><p>New Requests</p></div>
-                    <div class="Approved"><img src="image/tick.png" class="mail"> <p>Approved</p></div>
-                    <div class="Declined"><img src="image/cancel.png" class="mail"><p>Declined</p></div>
+                    <div class="Total-req"><img src="/total-req.png" class="mail"><p>New Requests</p></div>
+                    <div class="Approved"><img src="/tick.png" class="mail"> <p>Approved</p></div>
+                    <div class="Declined"><img src="/decline.png" class="mail"><p>Declined</p></div>
                 
             </div>
 
@@ -217,6 +236,7 @@
         getAllLeaveRequests()
 
       </script>
+<script src="../../src/admin/script/request_notification.js"></script>
 
 </body>
 </html>

@@ -27,10 +27,29 @@ router.get("/user_leaves", async (req, res) => {
     }
 });
 
+router.get("/pending", async (req, res) => {
+    try {
+        const query = "SELECT * FROM leave WHERE status = 'PENDING'";
+        const result = await client
+        .query(query);
+        const leave = result.rows;
+        leave.forEach(leave => {
+            leave.start_date = new Date(leave.start_date).toLocaleDateString("en-US", {timeZone: "Asia/Kathmandu"});
+            leave.end_date = new Date(leave.end_date).toLocaleDateString("en-US", {timeZone: "Asia/Kathmandu"});
+        });
+        res.json(leave);
+    } catch (error) {
+        console.error("Error fetching leave:", error);
+        res.sendStatus(500);
+    }
+});
 //fetching one leave from database
 router.get("/:id", getLeave, (req, res) => {
     res.json(req.leave);
 });
+
+
+
 
 router.post("/", async (req, res) => {
     try {
@@ -101,6 +120,25 @@ router.put("/reject/:id", async (req, res) => {
     }
 });
 
-
+router.get("/user/count", async (req, res) => {
+    try {
+        const query = "SELECT COUNT(*) FROM leave WHERE user_id = $1";
+        const values = [req.user.user_id];
+        const result = await client.query(query, values);
+        const query1 = "SELECT status, COUNT(*) FROM leave WHERE user_id = $1 group by status";
+        const vlues = [req.user.user_id];
+        const result1 = await client.query(query1, values);
+        const data = {total: result.rows[0].count};
+        result1.rows.forEach(row => {
+            data[row.status] = row.count;
+        });
+        console.log(data)
+        res.json(data);
+    } catch (error) {
+        console.error("Error fetching leave count:", error);
+        res.sendStatus(500);
+    }
+}
+);
 
 module.exports = router;

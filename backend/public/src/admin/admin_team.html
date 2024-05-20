@@ -18,6 +18,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
         <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+        <script src="../../src/script.js" defer></script>
     </head>
     <body>
         <div class="wrapper">
@@ -44,17 +45,39 @@
                         <a
                             href="#"
                             class="nav-item"
-                            onclick="navigateToPage('/admin/attendance')"
-                            >Attendance</a
-                        >
+                            onclick="navigateToPage('./attendance')"
+                            >Attendance
+                            <span
+                                class="red-dot"
+                                style="
+                                    background-color: #e74c3c;
+                                    display: none;
+                                    width: 10px;
+                                    height: 10px;
+                                    border-radius: 50%;
+                                    margin-left: 10px;
+                                "
+                            ></span>
+                        </a>
                     </li>
                     <li class="leave">
                         <a
                             href="#"
                             class="nav-item"
                             onclick="navigateToPage('/admin/leave')"
-                            >Leave</a
-                        >
+                            >Leave
+                            <span
+                                class="leave-red-dot"
+                                style="
+                                    background-color: #e74c3c;
+                                    display: none;
+                                    width: 10px;
+                                    height: 10px;
+                                    border-radius: 50%;
+                                    margin-left: 10px;
+                                "
+                            ></span
+                        ></a>
                     </li>
                     <li class="payroll">
                         <a
@@ -62,6 +85,14 @@
                             class="nav-item"
                             onclick="navigateToPage('/admin/payroll')"
                             >Payroll</a
+                        >
+                    </li>
+                    <li class="team">
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/admin/team')"
+                            >Team</a
                         >
                     </li>
                 </ul>
@@ -466,5 +497,6 @@
                 }
             }
         </script>
+        <script src="../../src/admin/script/request_notification.js"></script>
     </body>
 </html>
