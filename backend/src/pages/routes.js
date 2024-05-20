@@ -12,7 +12,12 @@ router.get("/",authenticateToken, (req, res) => {
     if(role === "ADMIN"){
         res.sendFile(path.join(srcPath, "admin/admin_home.html"));
     }else if(role === "EMPLOYEE"){
-        res.sendFile(path.join(srcPath, "dashboard/home.html"));
+        if(req.user.pw_change){
+            console.log(req.user.pw_change)
+            res.sendFile(path.join(srcPath, "auth/new.html"))
+        }else{
+            res.sendFile(path.join(srcPath, "dashboard/home.html"));
+        }
     }
 })
 

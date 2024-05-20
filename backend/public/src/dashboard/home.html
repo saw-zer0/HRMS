@@ -7,7 +7,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="src/dashboard/home.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-    <script src="../../src/script.js"></script>
+    <script src="../../src/script.js" defer></script>
 
 </head>
 <body>
@@ -32,13 +32,16 @@
           <button class="notify-btn"><i class="fas fa-bell"></i></button>
             </div>
             <div class="profile">
-              <button class="profile-button" onclick=""> <i class="fas fa-user"></i><span>AnupThapa</span></button>
+              <button class="profile-button" onclick="">
+                <i class="fas fa-user"></i>
+                <span></span>
+              </button>
             </div>
         <button class="log-out" onclick="logout()">Logout</button>
         
     </div>
     <div class="info">
-      <div class="profile-heading"><h2>Welcome, Anup Thapa</h2></div>
+      <div class="profile-heading"><h2>Welcome, <span></span></h2></div>
       
     <div class="gap"> 
     </div>
@@ -62,9 +65,9 @@
       </div>
     </div>
 
-    <div>
+    <!-- <div>
       <b>Working From :</b> 2020-10-07
-    </div>
+    </div> -->
     <div class="sub-container">
       <div class="small-container">
         <div class="highlight"> 
@@ -98,8 +101,8 @@
       </div>
     </div>
 
-    <div><b>Next Payroll Date:</b> <span class="pay-date">2023-05-11</span>
-    </div>
+    <!-- <div><b>Next Payroll Date:</b> <span class="pay-date">2023-05-11</span>
+    </div> -->
     <button class="pay-his-btn" onclick="window.location.href = './payroll'">Payroll History <i class="fas fa-chart-bar graph-icon"></i></button>
     </div>
     

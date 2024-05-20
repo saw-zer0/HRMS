@@ -12,7 +12,7 @@
         />
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="../../src/script.js"></script>
+        <script src="../../src/script.js" defer></script>
     </head>
     <body>
         <div class="wrapper">
@@ -158,10 +158,22 @@
                 <div class="leave-req">
                     <h3>Leave Requests</h3>
                     <div class="container">
-                        <div class="Total-req"><p>Total Requests</p></div>
-                        <div class="Approved"><p>Approved</p></div>
-                        <div class="Pending"><p>Pending</p></div>
-                        <div class="Declined"><p>Declined</p></div>
+                        <div class="Total-req">
+                            <h1>0</h1>
+                            <p>Total Requests</p>
+                        </div>
+                        <div class="Approved">
+                            <h1>0</h1>
+                            <p>Approved</p>
+                        </div>
+                        <div class="Pending">
+                            <h1>0</h1>
+                            <p>Pending</p>
+                        </div>
+                        <div class="Declined">
+                            <h1>0</h1>
+                            <p>Declined</p>
+                        </div>
                     </div>
                 </div>
 
@@ -386,6 +398,29 @@
                     console.error(error)
                 }
             })
+
+            function getCounts() {
+                fetch("/api/leaves/user/count")
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const {
+                            total = 0,
+                            APPROVED = 0,
+                            PENDING = 0,
+                            REJECTED = 0,
+                        } = data
+
+                        document.querySelector(".Total-req h1").textContent =
+                            total
+                        document.querySelector(".Approved h1").textContent =
+                            APPROVED
+                        document.querySelector(".Pending h1").textContent =
+                            PENDING
+                        document.querySelector(".Declined h1").textContent =
+                            REJECTED
+                    })
+            }
+            getCounts()
         </script>
     </body>
 </html>

@@ -15,6 +15,14 @@
                 must be different from your previous one.
             </p>
             <form action="#">
+                <label for="new-password">Old Password:</label>
+                <input
+                    type="password"
+                    id="old-password"
+                    name="old-password"
+                    placeholder="Enter your old password"
+                    required
+                />
                 <label for="new-password">New Password:</label>
                 <input
                     type="password"
@@ -35,4 +43,45 @@
             </form>
         </div>
     </body>
+    <script src="../../src/script.js" defer></script>
+    <script>
+        const form = document.querySelector("form")
+        form.addEventListener("submit", (e) => {
+            e.preventDefault()
+            const oldPassword = document.getElementById("old-password").value
+            const newPassword = document.getElementById("new-password").value
+            const confirmPassword =
+                document.getElementById("confirm-password").value
+            if (newPassword !== confirmPassword) {
+                alert("Passwords do not match")
+            } else {
+                fetch("api/user/change_password", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        newPassword: newPassword,
+                        oldPassword: oldPassword,
+                    }),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            // Password changed successfully
+                            alert("Password changed successfully")
+
+                            logout(true)
+                        } else {
+                            // Handle error response
+                            // Add your logic here
+                            alert("An error occurred. Please try again later.")
+                        }
+                    })
+                    .catch((error) => {
+                        // Handle network error
+                        // Add your logic here
+                    })
+            }
+        })
+    </script>
 </html>

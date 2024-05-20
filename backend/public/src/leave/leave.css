@@ -1,125 +1,123 @@
 /* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600&display=swap");
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  list-style: none;
-  text-decoration: none;
-  font-family: 'Poppins', sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
 }
 
-body{
-   background-color: #f3f5f9;
+body {
+    background-color: #f3f5f9;
 }
 
-.wrapper{
-  display: flex;
-  position: relative;
+.wrapper {
+    display: flex;
+    position: relative;
 }
 
-.wrapper .sidebar{
-  width: 200px;
-  height: 100%;
-  background: #7F9DAB;
-  padding: 30px 0px;
-  position: fixed;
+.wrapper .sidebar {
+    width: 200px;
+    height: 100%;
+    background: #7f9dab;
+    padding: 30px 0px;
+    position: fixed;
 }
 
-.wrapper .sidebar h2{
-  color: #fff;
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 30px;
+.wrapper .sidebar h2 {
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.wrapper .sidebar ul li{
-  padding: 30px;
-  font-weight: bold;
-  border-bottom: 1px solid #252525;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  border-top: 1px solid rgba(255,255,255,0.05);
-}    
-
-.wrapper .sidebar ul li a{
-  color: #ffffff;
-  display: block;
+.wrapper .sidebar ul li {
+    padding: 30px;
+    font-weight: bold;
+    border-bottom: 1px solid #252525;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.wrapper .sidebar ul li a .fas{
-  width: 25px;
+.wrapper .sidebar ul li a {
+    color: #ffffff;
+    display: block;
 }
 
-.wrapper .sidebar ul li:hover{
-  background-color: #586C75;
-}
-    
-.wrapper .sidebar ul li:hover a{
-  color: #fff;
-}
- 
-.wrapper .sidebar .social_media{
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
+.wrapper .sidebar ul li a .fas {
+    width: 25px;
 }
 
-.wrapper .sidebar .social_media a{
-  display: block;
-  width: 40px;
-  background: #594f8d;
-  height: 40px;
-  line-height: 45px;
-  text-align: center;
-  margin: 0 5px;
-  color: #bdb8d7;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+.wrapper .sidebar ul li:hover {
+    background-color: #586c75;
 }
 
-.wrapper .main_content{
-  width: 100%;
-  margin-left: 200px;
-  display: flex;
-  flex-direction: column;
+.wrapper .sidebar ul li:hover a {
+    color: #fff;
 }
 
-.wrapper .main_content .header{
-  padding: 10px ;
-  background: #1E4F66;
-  color: #717171;
-  border-bottom: 1px solid #e0e4e8;
-  justify-content: flex-end;
-  display: flex;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+.wrapper .sidebar .social_media {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
 }
 
- .logo{
-  height: 120px;
-  width: 120px;
-
+.wrapper .sidebar .social_media a {
+    display: block;
+    width: 40px;
+    background: #594f8d;
+    height: 40px;
+    line-height: 45px;
+    text-align: center;
+    margin: 0 5px;
+    color: #bdb8d7;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
-  .log-out {
-    background-color: #E25355; 
-    color: #ffffff; 
-    border: none; 
+.wrapper .main_content {
+    width: 100%;
+    margin-left: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper .main_content .header {
+    padding: 10px;
+    background: #1e4f66;
+    color: #717171;
+    border-bottom: 1px solid #e0e4e8;
+    justify-content: flex-end;
+    display: flex;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    height: 120px;
+    width: 120px;
+}
+
+.log-out {
+    background-color: #e25355;
+    color: #ffffff;
+    border: none;
     padding: 10px 20px;
-    font-size: 16px; 
-    cursor: pointer; 
-    border-radius: 5px; 
-    transition: background-color 0.3s, transform 0.3s;   
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
     align-self: flex-end;
-  }
-  
-  .log-out:hover {
-    background-color: #e74c3c; 
-    transform: translateY(-2px); 
-  }
-  
+}
+
+.log-out:hover {
+    background-color: #e74c3c;
+    transform: translateY(-2px);
+}
 
 .notification {
     display: flex;
@@ -128,188 +126,169 @@ body{
     align-self: flex-end;
 }
 
-.wrapper .sidebar ul li.leave{
-  background-color: #586C75;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+.wrapper .sidebar ul li.leave {
+    background-color: #586c75;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .leave-info {
-  align-self: flex-end;
-  padding-top: 20px;
-  padding-bottom: 20px;
+    align-self: flex-end;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .leave-button {
-  display: flex;
-  align-items: center;
-  background-color: #F7BE66;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 10px 10px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-  margin-right: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #f7be66;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-right: 20px;
 }
 
 .profile {
-  padding-right: 20px;
-  padding-left: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .profile-button {
-  display: flex;
-  align-items: center;
-  background-color: #f0f0f0;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 10px 10px;
-  align-self: flex-end;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 10px;
+    align-self: flex-end;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .profile-button i {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .profile-button:hover {
-  background-color: #ccc;
-  color: #fff;
-  border-color: #999;
+    background-color: #ccc;
+    color: #fff;
+    border-color: #999;
 }
 
-
 .notify-btn {
-  background-color: #ffffff;
-  border: none;
-  border-radius: 100%; 
-  width: 40px; 
-  height: 40px; 
-  padding: 12px; 
-  cursor: pointer;
-  outline: none;
-  transition: background-color 0.3s, transform 0.3s;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .notify-btn:hover {
-  background-color: #999; 
+    background-color: #999;
 }
 
 .notify-btn i {
-  color: #333; 
+    color: #333;
 }
 
-.leave-req{
-  padding-left: 10px;
+.leave-req {
+    padding-left: 10px;
 }
 
 .container {
-  display: flex;
-  padding-top: 20px;
+    display: flex;
+    padding-top: 20px;
 }
 
 .Total-req {
-  width: 272px;
-  height: 140px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  margin: 10px;
-  margin-right: 20px;
-  margin-left: 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+    width: 272px;
+    height: 140px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 10px;
+    margin-right: 20px;
+    margin-left: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .Approved {
-  width: 272px;
-  height: 140px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  margin: 10px;
-  margin-right: 20px;
-  margin-left: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+    width: 272px;
+    height: 140px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .Pending {
-  width: 272px;
-  height: 140px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  margin: 10px;
-  margin-right: 20px;
-  margin-left: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+    width: 272px;
+    height: 140px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .Declined {
-  width: 272px;
-  height: 140px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  margin: 10px;
-  margin-right: 20px;
-  margin-left: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+    width: 272px;
+    height: 140px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-.Approved p{
-  margin-top: 80px;
-  margin-left: 65px;
-}
-
-.Total-req p{
-  margin-top: 80px;
-  margin-left: 65px;
-}
-
-.Declined P{
-  margin-top: 80px;
-  margin-left: 65px;
-}
-
-.Pending p{
-  margin-top: 80px;
-  margin-left: 65px;
-}
 .table-container {
-  margin: 20px;
+    margin: 20px;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
 th {
-  background-color: #f2f2f2;
+    background-color: #f2f2f2;
 }
 
 tbody tr:hover {
-  background-color: #f9f9f9;
+    background-color: #f9f9f9;
 }
 
 button {
-  padding: 5px 10px;
-  margin-right: 5px;
-  cursor: pointer;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
 }
 
 button:hover {
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 .leave-info {
     text-align: center;
@@ -319,7 +298,7 @@ button:hover {
 .leave-button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #F6AF43;
+    background-color: #f6af43;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -401,7 +380,7 @@ button {
 }
 
 .submit-btn {
-    background-color: #F6AF43;
+    background-color: #f6af43;
     color: #fff;
 }
 

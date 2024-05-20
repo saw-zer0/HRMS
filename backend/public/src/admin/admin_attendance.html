@@ -17,12 +17,12 @@
 
         <link rel="stylesheet" href="../../src/admin/admin_attendance.css" />
         <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-        <script src="../../src/script.js"></script>
+        <script src="../../src/script.js" defer></script>
     </head>
     <body>
         <div class="wrapper">
             <div class="sidebar">
-                <h2><img src="LOGO.png" class="logo" /></h2>
+                <h2><img src="/LOGO.png" class="logo" /></h2>
                 <ul>
                     <li class="home">
                         <a
@@ -64,8 +64,19 @@
                             href="#"
                             class="nav-item"
                             onclick="navigateToPage('/admin/leave')"
-                            >Leave</a
-                        >
+                            >Leave
+                            <span
+                                class="leave-red-dot"
+                                style="
+                                    background-color: #e74c3c;
+                                    display: none;
+                                    width: 10px;
+                                    height: 10px;
+                                    border-radius: 50%;
+                                    margin-left: 10px;
+                                "
+                            ></span
+                        ></a>
                     </li>
                     <li class="payroll">
                         <a
@@ -73,6 +84,14 @@
                             class="nav-item"
                             onclick="navigateToPage('/admin/payroll')"
                             >Payroll</a
+                        >
+                    </li>
+                    <li class="team">
+                        <a
+                            href="#"
+                            class="nav-item"
+                            onclick="navigateToPage('/admin/team')"
+                            >Team</a
                         >
                     </li>
                 </ul>
@@ -166,7 +185,7 @@
                                 <th>New Clock Out</th>
                                 <th>Clock Out</th>
                                 <th>Remark</th>
-                                <th>Time of application</th>
+                                <th>Is Verified</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -228,7 +247,7 @@
                                     "clock_out",
                                     "old_clockout",
                                     "remark",
-                                    "date_created",
+                                    "is_verified",
                                 ]
 
                                 cols.forEach((data) => {
@@ -271,8 +290,8 @@
                                             .then((response) => response.json())
                                             .then((data) => {
                                                 document.querySelector(
-                                                    `#att${id} .status`
-                                                ).innerHTML = "Rejected"
+                                                    `#att${record.att_req_id} .status`
+                                                ).innerHTML = "APPROVED"
                                                 console.log(data)
                                             })
                                             .catch((error) => {
@@ -304,6 +323,9 @@
                                         )
                                             .then((response) => response.json())
                                             .then((data) => {
+                                                document.querySelector(
+                                                    `#att${record.att_req_id} .status`
+                                                ).innerHTML = "REJECTED"
                                                 console.log(data)
                                             })
                                             .catch((error) => {
@@ -355,5 +377,6 @@
                 displayCorrectionRequests()
             })
         </script>
+        <script src="../../src/admin/script/request_notification.js"></script>
     </body>
 </html>
